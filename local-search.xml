@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>讲数构和算法的计划</title>
+    <link href="/posts/2854458041.html"/>
+    <url>/posts/2854458041.html</url>
+    
+    <content type="html"><![CDATA[<p>本课程还是以普及为主，不会做很难的题，会把基础的数据结构和算法（具体见正文）过一遍，语言的话主要会使用JAVA，毕竟语言只是工具嘛，感兴趣的可以来听一听呀！！！</p><span id="more"></span><h2 id="时间："><a href="#时间：" class="headerlink" title="时间："></a>时间：</h2><p>会在7月25日开始导课，具体的东西会在导课上说清楚，预计会持续到8月份的末期</p><h2 id="讲到的知识点："><a href="#讲到的知识点：" class="headerlink" title="讲到的知识点："></a>讲到的知识点：</h2><p>顺序会在导课上讲，以下是不分先后</p><ul><li>基础算法<ul><li>排序：<ul><li>十大排序概述</li><li>归并</li><li>快排</li></ul></li><li>查找：<ul><li>二分</li><li>插值</li></ul></li><li>高精度的算法</li><li>前缀与差分</li><li>双指针</li><li>位运算</li><li>离散化</li><li>区间合并</li><li>kmp算法</li></ul></li><li>数据结构：<ul><li>单双链表</li><li>栈/单调栈</li><li>队列/单调队列</li><li>Trie树</li><li>并查集</li><li>堆</li><li>哈希表</li><li>树</li><li>图</li></ul></li><li>搜索与图论算法<ul><li>dfs，bfs</li><li>树与图的深度优先和广度优先遍历</li><li>拓扑排序</li><li>dijkstra算法</li><li>bellman-ford算法</li><li>spfa算法</li><li>floyd算法</li><li>prim算法</li><li>kruskal算法</li><li>染色法</li><li>匈牙利算法</li></ul></li><li>动态规划算法（俗称dp）<ul><li>背包问题<ul><li>01背包</li><li>多重背包</li><li>完全背包</li><li>分组背包</li></ul></li><li>数位dp</li><li>区间dp</li><li>计数类dp</li><li>状压dp</li><li>树形dp</li><li>记忆化搜索</li></ul></li><li>贪心算法：<ul><li>Huffman树</li></ul></li></ul><p>大概会讲这些，持续一个多月吧。如果8月末讲不完会一直延续到讲完为止。</p><p class="note note-success">之后这个系列课程视频用到的所有材料和题解，笔记都会在这个博客中发布哦</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>B站</category>
+      
+      <category>计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>b站</tag>
+      
+      <tag>数据结构</tag>
+      
+      <tag>计划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>SQL语句</title>
     <link href="/posts/3038647440.html"/>
     <url>/posts/3038647440.html</url>
@@ -21,6 +54,8 @@
     
     
     <tags>
+      
+      <tag>计算机技术</tag>
       
       <tag>mysql</tag>
       
@@ -97,7 +132,7 @@
   
   
   <entry>
-    <title>Hello World</title>
+    <title>README</title>
     <link href="/posts/2691471937.html"/>
     <url>/posts/2691471937.html</url>
     
