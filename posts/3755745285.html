@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="准备做一些博客的说明，也宣传一下假期准备在b站做视频了！">
+  <meta name="description" content=" 之后我们学到的AOP（面向切面编程）的底层就是这个哦，而这个的底层就是反射机制，至少要看一看反射机制再来看看这个呀！">
   <meta name="author" content="金铉杰">
   <meta name="keywords" content="">
   
-  <title>Hello World - Jinxuanjie&#39;s Blog</title>
+  <title>JDK动态代理 - Jinxuanjie&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Hello World">
+            <span class="h2" id="subtitle" title="JDK动态代理">
               
             </span>
 	
@@ -178,8 +178,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-04 12:36" pubdate>
-        2021年7月4日 下午
+      <time datetime="2021-07-04 19:50" pubdate>
+        2021年7月4日 晚上
       </time>
     </span>
   
@@ -190,7 +190,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      200 字
+      834 字
     </span>
   
 
@@ -200,7 +200,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      11
        分钟
     </span>
   
@@ -238,29 +238,93 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Hello World</h1>
+            <h1 style="display: none">JDK动态代理</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：5 小时前
+                  本文最后更新于：20 分钟前
                 
               </p>
             
             <div class="markdown-body">
-              <p>准备做一些博客的说明，也宣传一下假期准备在b站做视频了！</p>
+              <p> 之后我们学到的AOP（面向切面编程）的底层就是这个哦，而这个的底层就是反射机制，至少要看一看反射机制再来看看这个呀！</p>
 <span id="more"></span>
 
+<h1 id="jdk动态代理"><a href="#jdk动态代理" class="headerlink" title="jdk动态代理"></a>jdk动态代理</h1><p>动态代理基于反射机制</p>
+<p>掌握程度：</p>
+<ul>
+<li>什么是动态代理</li>
+<li>知道动态代理能作什么</li>
+</ul>
+<p>使用代理模式的作用：</p>
+<ul>
+<li>功能增强：在原有的功能上，增加了额外的功能。新增加的功能叫做功能增强</li>
+<li>控制访问：代理类不让你访问目标，例如商家不让用户访问厂家</li>
+</ul>
+<p>实现代理的方式：</p>
+<ul>
+<li>静态代理：<ul>
+<li>自己手工实现，自己创建一个代理类</li>
+<li>代理的目标类也是确定的<ul>
+<li>实现简单，容易理解 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>动态代理：在程序的执行过程中，使用jdk的反射机制，创建代理类对象，并动态的指定要代理的目标类<ul>
+<li>静态代理中当目标类很多的时候，我们会使用动态代理<ul>
+<li>因为目标类即使很多，代理类可以很少</li>
+<li>当你修改了接口中的方法，不会影响代理类</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>说白一点，动态代理就是具有创建对象的能力</p>
+<h2 id="jdk动态代理的实现"><a href="#jdk动态代理的实现" class="headerlink" title="jdk动态代理的实现"></a>jdk动态代理的实现</h2><ul>
+<li>jdk动态代理：<ul>
+<li>使用java反射包中的类和接口实现动态代理功能</li>
+<li>反射包java.lang.reflect，里面有三个类：<ul>
+<li>invocationhandler<ul>
+<li><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210322185518876.png" srcset="/img/loading.gif" lazyload alt="image-20210322185518876"></li>
+</ul>
+</li>
+<li>Method<ul>
+<li><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210322185550552.png" srcset="/img/loading.gif" lazyload alt="image-20210322185550552"></li>
+</ul>
+</li>
+<li>Proxy<ul>
+<li><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210322185613718.png" srcset="/img/loading.gif" lazyload alt="image-20210322185613718"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>cglib动态代理（了解）<ul>
+<li>cglib是第三方的工具库，创建代理对象 </li>
+<li>cglib原理是继承，通过继承目标类来创建它的子类，在子类中重写父类方法，实现功能的修改</li>
+<li>正因为cgliv是继承，所以要求目标类和方法不是final的</li>
+<li>cglib在很多框架中使用</li>
+</ul>
+</li>
+</ul>
+<p>cglib在代理效率上高于jdk。</p>
+<p>但是一般的开发中不适用cglib，只需要理解即可</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jxj;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.InvocationTargetException;<br><span class="hljs-keyword">import</span> java.lang.reflect.Method;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">tett1</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br><span class="hljs-comment">//        HelloService helloService=new HelloService();</span><br><span class="hljs-comment">//        helloService.sayHello(&quot;jxj&quot;);</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            Class c=Class.forName(<span class="hljs-string">&quot;com.jxj.HelloService&quot;</span>);<br>            Object obj=c.newInstance();<br>            Method m1 =c.getDeclaredMethod(<span class="hljs-string">&quot;sayHello&quot;</span>,String.class);<br>            Object retValue =m1.invoke(obj,<span class="hljs-string">&quot;jxj&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (IllegalAccessException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (InstantiationException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (NoSuchMethodException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (InvocationTargetException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
-<h2 id="博客说明："><a href="#博客说明：" class="headerlink" title="博客说明："></a>博客说明：</h2><p>7月末我会在b站做基础的数据结构和算法视频，此博客也会用作辅助教学的工具，在这里发布相关材料和题解，笔记等等,欢迎大家来观看。</p>
-<p><strong>也会在这里分享每天学习和生活的趣事，心情，毕竟生活才是主旋律嘛，比任何东西都要重要得多。</strong></p>
-<hr>
+<p>Class.forname后的参数必须带包名</p>
+<p>上述是利用反射机制调用方法</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210322190225001.png" srcset="/img/loading.gif" lazyload alt="image-20210322190225001"></p>
+<p>handler</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jxj;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.InvocationHandler;<br><span class="hljs-keyword">import</span> java.lang.reflect.Method;<br><span class="hljs-comment">//必须实现InvocationHandler接口，完成代理类要做的功能(1.调用目标方法，2.执行功能增强)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MySellHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">InvocationHandler</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> Object target=<span class="hljs-keyword">null</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MySellHandler</span><span class="hljs-params">(Object target)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.target = target;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">invoke</span><span class="hljs-params">(Object proxy, Method method, Object[] args)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>   <span class="hljs-comment">// float price =factory.sell(amount);</span><br>        Object res =<span class="hljs-keyword">null</span>;<br><br>       res= method.invoke(target,args);<br>       <span class="hljs-keyword">if</span> (res!=<span class="hljs-keyword">null</span>)&#123;<br>           Float price = (Float) res;<br>           price+=<span class="hljs-number">25</span>;<br>           res=price;<br><br><br>       &#125;<br>        System.out.println(<span class="hljs-string">&quot;返你一个优惠卷&quot;</span>);<br><span class="hljs-keyword">return</span> res;<br><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
-<p>如果觉得我分享的东西好，可以长期关注这个博客，会持续更新的！！</p>
-<br>
+<p>mainshop</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jxj;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.InvocationHandler;<br><span class="hljs-keyword">import</span> java.lang.reflect.Proxy;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainShop</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        UsbSell factory =<span class="hljs-keyword">new</span> factory();<br>        InvocationHandler handler=<span class="hljs-keyword">new</span> MySellHandler(factory);<br>     Object proxy=   Proxy.newProxyInstance(factory.getClass().getClassLoader(),factory.getClass().getInterfaces(),handler);<br>        UsbSell usbSell=(UsbSell)proxy;<br>        <span class="hljs-keyword">float</span> price= usbSell.sell(<span class="hljs-number">1</span>);<br>        System.out.println(price);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
-<p>b站地址在页面底部哦👇👇👇👇👇👇，欢迎来一起学习和讨论</p>
-<p class="note note-success">此博客也仅仅用作学习，和交流，如果有什么建议，欢迎给我留言</p>
-
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210322230835265.png" srcset="/img/loading.gif" lazyload alt="image-20210322230835265"></p>
+<h2 id="动态代理的功能"><a href="#动态代理的功能" class="headerlink" title="动态代理的功能"></a>动态代理的功能</h2><p>可以在不改目标方法功能的前提下，可以在代理中增强自己的代码。</p>
+<p>动态代理必须要有自己的接口</p>
 
             </div>
             <hr>
@@ -270,7 +334,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%85%B3%E4%BA%8E%E5%8D%9A%E5%AE%A2/">关于博客</a>
+                      <a class="hover-with-bg" href="/categories/JAVA/">JAVA</a>
+                    
+                      <a class="hover-with-bg" href="/categories/JAVA/%E5%8E%9F%E7%94%9FJAVAWEB/">原生JAVAWEB</a>
                     
                   </div>
                 
@@ -278,7 +344,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8D%9A%E5%AE%A2%E8%AF%B4%E6%98%8E/">博客说明</a>
+                      <a class="hover-with-bg" href="/tags/JAVA/">JAVA</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/">计算机技术</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%A8%A1%E5%BC%8F/">模式</a>
                     
                   </div>
                 
@@ -295,9 +365,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/2414116852.html">
+                      <a href="/posts/3038647440.html">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JDBC</span>
+                        <span class="hidden-mobile">SQL语句</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -305,8 +375,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/3084993745.html">
-                        <span class="hidden-mobile">排序算法</span>
+                      <a href="/posts/2414116852.html">
+                        <span class="hidden-mobile">JDBC</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

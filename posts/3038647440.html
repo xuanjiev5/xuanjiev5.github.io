@@ -1,0 +1,704 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/zhaoxi.jpg">
+  <link rel="icon" href="/img/zhaoxi.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="sql语句是操作对数据库和表增删改查的基础，并且sql语句是对任何关系型数据库系统都是通用的，本笔记以mysql为例子哦！">
+  <meta name="author" content="金铉杰">
+  <meta name="keywords" content="">
+  
+  <title>SQL语句 - Jinxuanjie&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":65,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Jinxuanjie's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/Hello%20World2.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SQL语句">
+              
+            </span>
+	
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      金铉杰
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-04 19:57" pubdate>
+        2021年7月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SQL语句</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：11 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>sql语句是操作对数据库和表增删改查的基础，并且sql语句是对任何关系型数据库系统都是通用的，本笔记以mysql为例子哦！</p>
+<span id="more"></span>
+
+<h1 id="sql语句"><a href="#sql语句" class="headerlink" title="sql语句"></a>sql语句</h1><h2 id="DQL语句"><a href="#DQL语句" class="headerlink" title="DQL语句"></a>DQL语句</h2><h3 id="简单的查询："><a href="#简单的查询：" class="headerlink" title="简单的查询："></a>简单的查询：</h3><p>select 字段名1，字段名2， from 表名。</p>
+<p>提示：</p>
+<ul>
+<li>任何一条sql语句以；结尾</li>
+<li>sql不区分大小写</li>
+</ul>
+<p>我们的字段可以参与数学运算</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210121616640.png" srcset="/img/loading.gif" lazyload alt="image-20210210121616640"></p>
+<p>也可以为这个数学运算后的字段重新改个名，如下：</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210121712952.png" srcset="/img/loading.gif" lazyload alt="image-20210210121712952"></p>
+<p>若有中文要括上单引号；</p>
+<p>标准sql语句中要求字符串使用单引号括起来。</p>
+<p>查询所有字段：</p>
+<p>实际开发中不建议使用。</p>
+<h3 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h3><p>利用where来限制条件</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210122302072.png" srcset="/img/loading.gif" lazyload alt="image-20210210122302072"></p>
+<p>执行顺序：先from，然后where，最后select</p>
+<p>对于不等于来说可以使用！=也可以使用&lt;&gt;，都是可以的。 </p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210123159560.png" srcset="/img/loading.gif" lazyload alt="image-20210210123159560"></p>
+<p>and可以</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210123325041.png" srcset="/img/loading.gif" lazyload alt="image-20210210123325041"></p>
+<p>between可以（between是闭区间）</p>
+<p>between and使用的时候小数字在前，大数字在后。</p>
+<p>between and也可以用在字符方面，此时是左闭右开<img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210124021482.png" srcset="/img/loading.gif" lazyload alt="image-20210210124021482"></p>
+<p>数据库中null不是一个值，代表什么都没有，为空</p>
+<p>空不是一个值，不能用等号来衡量，</p>
+<p>必须使用is null 或者is not null。</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210125341124.png" srcset="/img/loading.gif" lazyload alt="image-20210210125341124"></p>
+<p>查询时or和and是由优先级的。</p>
+<p>当运算符的优先级不确定的时候利用小括号。</p>
+<p>in关键字：</p>
+<p>in等同于or</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210125651759.png" srcset="/img/loading.gif" lazyload alt="image-20210210125651759"></p>
+<p>in后面的不是区间，而只是一个值。</p>
+<p>当然有in 也就也有not in</p>
+<h3 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h3><p>必须掌握%和_的使用</p>
+<p>%代表任意多个字符，_代表任意的一个字符。</p>
+<h3 id="升序"><a href="#升序" class="headerlink" title="升序"></a>升序</h3><p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210134930895.png" srcset="/img/loading.gif" lazyload alt="image-20210210134930895"></p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210135420494.png" srcset="/img/loading.gif" lazyload alt="image-20210210135420494"></p>
+<p>执行顺序，oredr by是最后执行的。</p>
+<h3 id="单行处理函数"><a href="#单行处理函数" class="headerlink" title="单行处理函数"></a>单行处理函数</h3><p>输入一行，输出一行。</p>
+<p>只要数学表达式中有null出现，最终结果就必须是null</p>
+<p>ifnull（）空处理函数</p>
+<p>ifnull（可能为null的数据，被当做什么处理）：单行处理</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210154445168.png" srcset="/img/loading.gif" lazyload alt="image-20210210154445168"></p>
+<h3 id="分组函数"><a href="#分组函数" class="headerlink" title="分组函数"></a>分组函数</h3><ul>
+<li>count 技术</li>
+<li>sum求和</li>
+<li>avg平均值</li>
+<li>max最大值</li>
+<li>min最小值</li>
+</ul>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210153555737.png" srcset="/img/loading.gif" lazyload alt="image-20210210153555737"></p>
+<p>也叫多行处理函数：输入多行，最终输出结果是一行。</p>
+<p>分组函数会自动忽略空（null）。</p>
+<h3 id="group-by-和having"><a href="#group-by-和having" class="headerlink" title="group by 和having"></a>group by 和having</h3><p>group by：按照某个字段或者某些字段进行分组</p>
+<p>having：对分组之后的数据进行再次的过滤。</p>
+<p>分组函数都会和group一起使用。分组函数都会在group by结束之后再执行的。没有group by整张表就自成一组。</p>
+<p>where后面不能用分组函数。</p>
+<p>再写一遍顺序：</p>
+<ol>
+<li>from</li>
+<li>where</li>
+<li>group by</li>
+<li>having</li>
+<li>select</li>
+<li>order by</li>
+</ol>
+<p>若一条sql语句中有group by的话，select后面只能加分组函数和分组的字段，其他的一律不行。</p>
+<p>多个字段可以联合起来分组</p>
+<p> <img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210191259506.png" srcset="/img/loading.gif" lazyload alt="image-20210210191259506"></p>
+<p>可以用where过滤的话，尽量在where就把数据过滤掉。</p>
+<h3 id="distinct"><a href="#distinct" class="headerlink" title="distinct"></a>distinct</h3><p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210192727699.png" srcset="/img/loading.gif" lazyload alt="image-20210210192727699"></p>
+<p>distinct只能出现在所有字段的最前面，如果多条字段说明是联合去重。</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210194456287.png" srcset="/img/loading.gif" lazyload alt="image-20210210194456287"></p>
+<h3 id="完整的dql语句："><a href="#完整的dql语句：" class="headerlink" title="完整的dql语句："></a>完整的dql语句：</h3><p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210192537089.png" srcset="/img/loading.gif" lazyload alt="image-20210210192537089"></p>
+<h3 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h3><p>一一般来说。大部分都不是从单表中查询数据，一般都是多张联合取出的最终结果，在实际开发中，一般一个业务都会对应多张表。</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210194906219.png" srcset="/img/loading.gif" lazyload alt="image-20210210194906219"> </p>
+<h4 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h4><p>根据语法：</p>
+<ul>
+<li>sql92</li>
+<li>sql99</li>
+</ul>
+<p>根据连接方式</p>
+<ul>
+<li>内连接<ul>
+<li>等值连接</li>
+<li>非等值连接</li>
+<li>自连接</li>
+</ul>
+</li>
+<li>外连接<ul>
+<li>左外连接</li>
+<li>右外连接</li>
+</ul>
+</li>
+<li>全连接（很少用）</li>
+</ul>
+<h5 id="笛卡尔积现象"><a href="#笛卡尔积现象" class="headerlink" title="笛卡尔积现象"></a>笛卡尔积现象</h5><p>当俩张表进行连接查询的时候，没有任何条件限制，最终查询结果条数是俩张表记录条数的乘积。</p>
+<p>关于表的别名：</p>
+<ul>
+<li>执行效率高</li>
+<li>可读性好</li>
+</ul>
+<p>避免笛卡尔现象的方法是加条件来进行过滤。</p>
+<p>但是要注意的是，避免了笛卡尔积现象，并不会减少记录的匹配次数，只不过显示的时候显示的是有效数据。</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210203216468.png" srcset="/img/loading.gif" lazyload alt="image-20210210203216468"></p>
+<h4 id="等值连接"><a href="#等值连接" class="headerlink" title="等值连接"></a>等值连接</h4><p>条件是等量关系</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210212925382.png" srcset="/img/loading.gif" lazyload alt="image-20210210212925382"></p>
+<p>上述是sql99语法</p>
+<h4 id="非等值连接"><a href="#非等值连接" class="headerlink" title="非等值连接"></a>非等值连接</h4><p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210224100786.png" srcset="/img/loading.gif" lazyload alt="image-20210210224100786"></p>
+<h4 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h4><p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210210231319594.png" srcset="/img/loading.gif" lazyload alt="image-20210210231319594"></p>
+<p>假象复制一份相同的，然后自连接。</p>
+<h4 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h4><p>假设a，b表进行连接，使用外连接的话，ab俩张表中一张是主表，一张是副表，主要查询主表上的数据，捎带着查询副表，当副表中没有和主表数据匹配上的自动模拟出null来与之匹配。 </p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211075820541.png" srcset="/img/loading.gif" lazyload alt="image-20210211075820541"></p>
+<h4 id="三张以上表查询"><a href="#三张以上表查询" class="headerlink" title="三张以上表查询"></a>三张以上表查询</h4><p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211081708047.png" srcset="/img/loading.gif" lazyload alt="image-20210211081708047"></p>
+<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>select语句嵌套select语句查询</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211085057173.png" srcset="/img/loading.gif" lazyload alt="image-20210211085057173"></p>
+<p>where里嵌套（上述）</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211105112132.png" srcset="/img/loading.gif" lazyload alt="image-20210211105112132"></p>
+<p>这个是from里嵌套</p>
+<h3 id="union"><a href="#union" class="headerlink" title="union"></a>union</h3><p>可以将查询结果集相加</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211162901983.png" srcset="/img/loading.gif" lazyload alt="image-20210211162901983"></p>
+<h3 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h3><p>limit可以限制条数</p>
+<p>语法是 limit 起点，个数</p>
+<p>分页查询全靠这玩意。</p>
+<p>limit是sql语句中最后执行的一个环节。</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211164115218.png" srcset="/img/loading.gif" lazyload alt="image-20210211164115218"></p>
+<h2 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h2><p>建表语句语法格式：</p>
+<p>create table 表名{</p>
+<p>​    字段名 1 数据类型，</p>
+<p>​    字段名 2 数据类型，</p>
+<p>​    字段名 3 数据类型，</p>
+<p>}</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211164701465.png" srcset="/img/loading.gif" lazyload alt="image-20210211164701465"></p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211180423765.png" srcset="/img/loading.gif" lazyload alt="image-20210211180423765"></p>
+<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><p>insert语句：</p>
+<p>insert into 表名（字段名1，2，3，4） values（值1，2，3，4）；</p>
+<p>字段如果只写部分的，就会为其他的字段附上null</p>
+<p>可以省略前面的字段，但是要按照顺序，并且全写。</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211182040917.png" srcset="/img/loading.gif" lazyload alt="image-20210211182040917"></p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211182618059.png" srcset="/img/loading.gif" lazyload alt="image-20210211182618059"></p>
+<h3 id="default"><a href="#default" class="headerlink" title="default"></a>default</h3><p>可以用default来设定默认值</p>
+<h2 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h2><p>update</p>
+<p>update 表名 set 字段名=值······ where 条件</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211183216776.png" srcset="/img/loading.gif" lazyload alt="image-20210211183216776"></p>
+<p>没有限制条件，整张表所有字段全部更新。</p>
+<h2 id="删除数据（表）"><a href="#删除数据（表）" class="headerlink" title="删除数据（表）"></a>删除数据（表）</h2><p>删除表：drop table 表名</p>
+<p>语法格式</p>
+<p>delete from 表名 where 条件；</p>
+<p>没有条件将全部删除</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211184212309.png" srcset="/img/loading.gif" lazyload alt="image-20210211184212309"></p>
+<h2 id="对于表结构的修改"><a href="#对于表结构的修改" class="headerlink" title="对于表结构的修改"></a>对于表结构的修改</h2><p> 使用工具完成就可以了，因为实际开发中，表一旦设计好，对表结构的修改是很少的。</p>
+<p>增删改查有一个术语：crud操作</p>
+<p>create（增） retrieve（检索） update（修改） delete（删除）</p>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><p>添加约束的目的时为了保证表的数据的合法性，有效性，完整性。</p>
+<p>常见的约束：</p>
+<ul>
+<li>非空约束（not null）</li>
+<li>唯一约束（unique）唯一性但可以为null</li>
+</ul>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211200536663.png" srcset="/img/loading.gif" lazyload alt="image-20210211200536663"></p>
+<ul>
+<li>主键约束（primary key）不可为空也不能重复 </li>
+</ul>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211201831871.png" srcset="/img/loading.gif" lazyload alt="image-20210211201831871"></p>
+<p>主键应该不和业务挂钩。<img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211202657776.png" srcset="/img/loading.gif" lazyload alt="image-20210211202657776"></p>
+<p>可以以这种方式，自动添加自增的主键。</p>
+<ul>
+<li>外键约束（foreign key）</li>
+</ul>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211203647137.png" srcset="/img/loading.gif" lazyload alt="image-20210211203647137"></p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210211204005433.png" srcset="/img/loading.gif" lazyload alt="image-20210211204005433"></p>
+<p>外键值可以为null</p>
+<p>被引用的字段可以不用为主键，但至少要有unique约束，是独一无二的。</p>
+<ul>
+<li>检查约束（check）：oracle数据库有check约束，但是mysql没有，目前mysql不支持该约束。</li>
+</ul>
+<h2 id="悲观锁（行级锁）和乐观锁"><a href="#悲观锁（行级锁）和乐观锁" class="headerlink" title="悲观锁（行级锁）和乐观锁"></a>悲观锁（行级锁）和乐观锁</h2><p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210213222734274.png" srcset="/img/loading.gif" lazyload alt="image-20210213222734274"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/sql%E8%AF%AD%E5%8F%A5/">sql语句</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/mysql/">mysql</a>
+                    
+                      <a class="hover-with-bg" href="/tags/sql%E8%AF%AD%E8%A8%80/">sql语言</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/3755745285.html">
+                        <span class="hidden-mobile">JDK动态代理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"DMqxY1YgJYYK7J4cEVToKdLI-gzGzoHsz","appKey":"qYmhywplM4iNj6r2M8jsrulM","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <div> <a href ="https://b23.tv/PwA5tp?share_medium=android&share_source=qq&bbid=XYAAFA9ACF2C5ADFBAAFAFAEA61F078883DD9&ts=1625234569715"><img src="/img/bilibili.png" srcset="/img/loading.gif" lazyload class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;"> <br/></a> <p style="text-align: center; font-size: 19px">来我的b站，一起学习吧（手机端建议扫码，pc端建议点击二维码图片直接跳转哦）</p> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
