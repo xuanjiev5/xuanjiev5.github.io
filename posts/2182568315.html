@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content=" 之后我们学到的AOP（面向切面编程）的底层就是这个哦，而这个的底层就是反射机制，至少要看一看反射机制再来看看这个呀！">
+  <meta name="description" content="本文将分享一个破链成环的方法">
   <meta name="author" content="金铉杰">
   <meta name="keywords" content="">
   
-  <title>JDK动态代理 - Jinxuanjie&#39;s Blog</title>
+  <title>破链成环方法 - Jinxuanjie&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="JDK动态代理">
+            <span class="h2" id="subtitle" title="破链成环方法">
               
             </span>
 	
@@ -178,8 +178,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-04 19:50" pubdate>
-        2021年7月4日 晚上
+      <time datetime="2021-08-20 20:27" pubdate>
+        2021年8月20日 晚上
       </time>
     </span>
   
@@ -190,7 +190,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      834 字
+      559 字
     </span>
   
 
@@ -200,7 +200,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      7
        分钟
     </span>
   
@@ -238,93 +238,40 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">JDK动态代理</h1>
+            <h1 style="display: none">破链成环方法</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2 个月前
+                  本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <p> 之后我们学到的AOP（面向切面编程）的底层就是这个哦，而这个的底层就是反射机制，至少要看一看反射机制再来看看这个呀！</p>
+              <p>本文将分享一个破链成环的方法</p>
 <span id="more"></span>
 
-<h1 id="jdk动态代理"><a href="#jdk动态代理" class="headerlink" title="jdk动态代理"></a>jdk动态代理</h1><p>动态代理基于反射机制</p>
-<p>掌握程度：</p>
-<ul>
-<li>什么是动态代理</li>
-<li>知道动态代理能作什么</li>
-</ul>
-<p>使用代理模式的作用：</p>
-<ul>
-<li>功能增强：在原有的功能上，增加了额外的功能。新增加的功能叫做功能增强</li>
-<li>控制访问：代理类不让你访问目标，例如商家不让用户访问厂家</li>
-</ul>
-<p>实现代理的方式：</p>
-<ul>
-<li>静态代理：<ul>
-<li>自己手工实现，自己创建一个代理类</li>
-<li>代理的目标类也是确定的<ul>
-<li>实现简单，容易理解 </li>
-</ul>
-</li>
-</ul>
-</li>
-<li>动态代理：在程序的执行过程中，使用jdk的反射机制，创建代理类对象，并动态的指定要代理的目标类<ul>
-<li>静态代理中当目标类很多的时候，我们会使用动态代理<ul>
-<li>因为目标类即使很多，代理类可以很少</li>
-<li>当你修改了接口中的方法，不会影响代理类</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>说白一点，动态代理就是具有创建对象的能力</p>
-<h2 id="jdk动态代理的实现"><a href="#jdk动态代理的实现" class="headerlink" title="jdk动态代理的实现"></a>jdk动态代理的实现</h2><ul>
-<li>jdk动态代理：<ul>
-<li>使用java反射包中的类和接口实现动态代理功能</li>
-<li>反射包java.lang.reflect，里面有三个类：<ul>
-<li>invocationhandler<ul>
-<li><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210322185518876.png" srcset="/img/loading.gif" lazyload alt="image-20210322185518876"></li>
-</ul>
-</li>
-<li>Method<ul>
-<li><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210322185550552.png" srcset="/img/loading.gif" lazyload alt="image-20210322185550552"></li>
-</ul>
-</li>
-<li>Proxy<ul>
-<li><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210322185613718.png" srcset="/img/loading.gif" lazyload alt="image-20210322185613718"></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>cglib动态代理（了解）<ul>
-<li>cglib是第三方的工具库，创建代理对象 </li>
-<li>cglib原理是继承，通过继承目标类来创建它的子类，在子类中重写父类方法，实现功能的修改</li>
-<li>正因为cgliv是继承，所以要求目标类和方法不是final的</li>
-<li>cglib在很多框架中使用</li>
-</ul>
-</li>
-</ul>
-<p>cglib在代理效率上高于jdk。</p>
-<p>但是一般的开发中不适用cglib，只需要理解即可</p>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jxj;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.InvocationTargetException;<br><span class="hljs-keyword">import</span> java.lang.reflect.Method;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">tett1</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br><span class="hljs-comment">//        HelloService helloService=new HelloService();</span><br><span class="hljs-comment">//        helloService.sayHello(&quot;jxj&quot;);</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            Class c=Class.forName(<span class="hljs-string">&quot;com.jxj.HelloService&quot;</span>);<br>            Object obj=c.newInstance();<br>            Method m1 =c.getDeclaredMethod(<span class="hljs-string">&quot;sayHello&quot;</span>,String.class);<br>            Object retValue =m1.invoke(obj,<span class="hljs-string">&quot;jxj&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (IllegalAccessException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (InstantiationException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (NoSuchMethodException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (InvocationTargetException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>由一道题引出今天破链成环方法的技巧</p>
+<blockquote>
+<p>一天可以被分为 n 个时段。</p>
+<p>一个工人的每日工作安排可以用一个长度为 n 的 0101 序列 a1,a2,…,an 来表示。</p>
+<p>ai 为 00 表示第 ii 个时间段是工作时间ai 为 1 表示第 i个时间段是休息时间。</p>
+<p>工人日复一日的严格按照这个工作安排来进行工作和休息。</p>
+<p>请问，工人的最长连续休息时间有多长（单位：时段）？</p>
+<p>注意，连续休息时间可能跨天。</p>
+<p>保证工人至少在一个时间段处于工作状态。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 T，表示共有 T 组测试数据。</p>
+<p>每组数据第一行包含整数 n。</p>
+<p>第二行包含 n 个整数 a1,a2,…,an</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>每组数据输出一行结果，表示最长连续休息时间。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤T≤10<br>1≤n≤2×105<br>0≤ai≤1<br>同一测试点内所有 n 的和不超过 2×1052×105。</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight basic"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs basic"><span class="hljs-number">4</span><br><span class="hljs-number">5</span><br><span class="hljs-symbol">1 </span><span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span><br><span class="hljs-number">6</span><br><span class="hljs-symbol">0 </span><span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span><br><span class="hljs-number">7</span><br><span class="hljs-symbol">1 </span><span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span><br><span class="hljs-number">3</span><br><span class="hljs-symbol">0 </span><span class="hljs-number">0</span> <span class="hljs-number">0</span><br></code></pre></div></td></tr></table></figure>
 
-<p>Class.forname后的参数必须带包名</p>
-<p>上述是利用反射机制调用方法</p>
-<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210322190225001.png" srcset="/img/loading.gif" lazyload alt="image-20210322190225001"></p>
-<p>handler</p>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jxj;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.InvocationHandler;<br><span class="hljs-keyword">import</span> java.lang.reflect.Method;<br><span class="hljs-comment">//必须实现InvocationHandler接口，完成代理类要做的功能(1.调用目标方法，2.执行功能增强)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MySellHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">InvocationHandler</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> Object target=<span class="hljs-keyword">null</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MySellHandler</span><span class="hljs-params">(Object target)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.target = target;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">invoke</span><span class="hljs-params">(Object proxy, Method method, Object[] args)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>   <span class="hljs-comment">// float price =factory.sell(amount);</span><br>        Object res =<span class="hljs-keyword">null</span>;<br><br>       res= method.invoke(target,args);<br>       <span class="hljs-keyword">if</span> (res!=<span class="hljs-keyword">null</span>)&#123;<br>           Float price = (Float) res;<br>           price+=<span class="hljs-number">25</span>;<br>           res=price;<br><br><br>       &#125;<br>        System.out.println(<span class="hljs-string">&quot;返你一个优惠卷&quot;</span>);<br><span class="hljs-keyword">return</span> res;<br><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">2<br>2<br>3<br>0<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">400010</span>;<br><br><span class="hljs-keyword">int</span> n;<br><span class="hljs-keyword">int</span> w[N];<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> T;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;T);<br>    <span class="hljs-keyword">while</span> (T -- )<br>    &#123;<br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>        &#123;<br>            <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;w[i]);<br>            w[n + i] = w[i];<br>        &#125;<br><br>        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, s = <span class="hljs-number">0</span>; i &lt; n * <span class="hljs-number">2</span>; i ++ )<br>            <span class="hljs-keyword">if</span> (w[i])<br>            &#123;<br>                s ++ ;<br>                res = <span class="hljs-built_in">max</span>(res, s);<br>            &#125;<br>            <span class="hljs-keyword">else</span> s = <span class="hljs-number">0</span>;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, res);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
-<p>mainshop</p>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jxj;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.InvocationHandler;<br><span class="hljs-keyword">import</span> java.lang.reflect.Proxy;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainShop</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        UsbSell factory =<span class="hljs-keyword">new</span> factory();<br>        InvocationHandler handler=<span class="hljs-keyword">new</span> MySellHandler(factory);<br>     Object proxy=   Proxy.newProxyInstance(factory.getClass().getClassLoader(),factory.getClass().getInterfaces(),handler);<br>        UsbSell usbSell=(UsbSell)proxy;<br>        <span class="hljs-keyword">float</span> price= usbSell.sell(<span class="hljs-number">1</span>);<br>        System.out.println(price);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-
-<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210322230835265.png" srcset="/img/loading.gif" lazyload alt="image-20210322230835265"></p>
-<h2 id="动态代理的功能"><a href="#动态代理的功能" class="headerlink" title="动态代理的功能"></a>动态代理的功能</h2><p>可以在不改目标方法功能的前提下，可以在代理中增强自己的代码。</p>
-<p>动态代理必须要有自己的接口</p>
+<p>题意：休息时间可以跨天，那么就是告诉我们这个的数据背景就是一个环，日复一日的在循环，这里如果我们硬做的话，我们需要特判最后的那个，并且也非常的麻烦，在这道题可能还没啥，所以我们会用到以上的这个破链成环的方法，开俩倍区间，然后这个序列循环俩次，来算出正确答案</p>
+<p>第一次做的时候没有想到这个方法，用的是分类讨论，这个方法是真的非常好用</p>
 
             </div>
             <hr>
@@ -334,9 +281,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/JAVA/">JAVA</a>
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
                     
-                      <a class="hover-with-bg" href="/categories/JAVA/%E5%8E%9F%E7%94%9FJAVAWEB/">原生JAVAWEB</a>
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/%E7%AC%94%E8%AE%B0/">笔记</a>
                     
                   </div>
                 
@@ -344,11 +291,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/JAVA/">JAVA</a>
-                    
                       <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/">计算机技术</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%A8%A1%E5%BC%8F/">模式</a>
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
                     
                   </div>
                 
@@ -365,18 +310,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/3038647440.html">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SQL语句</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/2414116852.html">
-                        <span class="hidden-mobile">JDBC</span>
+                      <a href="/posts/1920835834.html">
+                        <span class="hidden-mobile">lc第254场周赛</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
