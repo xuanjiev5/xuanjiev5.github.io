@@ -4,6 +4,62 @@
   
   
   <entry>
+    <title>基于子集的状压dp</title>
+    <link href="/posts/3960819418.html"/>
+    <url>/posts/3960819418.html</url>
+    
+    <content type="html"><![CDATA[<p>本文将分享一个状压dp的一类题：基于子集的动态规划</p><span id="more"></span><h2 id="前序"><a href="#前序" class="headerlink" title="前序"></a>前序</h2><p>写此篇文章的原因也是因为在周赛遇到了此问题，当时用的是dfs+剪枝解决，后来观看一些人的题解发现利用了状压dp，也学到了很多的东西</p><h1 id="状压dp"><a href="#状压dp" class="headerlink" title="状压dp"></a>状压dp</h1><p>其实，状压 DP 就是枚举所有情况的 「 暴力 」。</p><p>状态压缩，其实就是将每个任务 <code>task[i]</code> 看作某个 「 十进制数字 」 的<strong>二进制上的第 <code>i</code> 位</strong>，<code>1</code> 表示该任务被选择，反之不被选择。</p><p><strong>Tips</strong>： 十进制数字是多少我们根本不用关心，我们关心的是它的二进制长啥样。</p><p>状态压缩可以简单的理解为把一个布尔 boolean 数组压缩到了一个十进制数字上，之后便可以使用位运算的各种技巧来简化代码逻辑，这可比布尔数组好用多了！(๑•̀ㅂ•́)و✧</p><figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-comment">// m =&gt; 总状态数</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; m; i++) &#123;<br>    <span class="hljs-comment">// 枚举状态 i 的二进制子集</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i; j &gt; <span class="hljs-number">0</span>; j = (j - <span class="hljs-number">1</span>) &amp; i) &#123;<br>        <span class="hljs-comment">// To Do..</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure><p>其实状压dp并不会很难，然后这里是主要想说明一个枚举自己的一个方式，就是 j = (j - 1) &amp; i) </p><p>如果不会这步暴力来写的话：</p><figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-comment">// m =&gt; 总状态数</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; m; i++) &#123;<br>    <span class="hljs-comment">// 从 [1, i] 就可以了，后面的一定不会是 i 的子集</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= i; j++) &#123;<br>        <span class="hljs-comment">// 检查状态 j 是不是状态 i 的二进制子集</span><br>        <span class="hljs-keyword">if</span> ((i | j) == i) &#123;<br>            <span class="hljs-comment">// To Do..</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure><p>很明显的看出，第二个代码有些许的笨重并且没有任何美感hhh</p><h3 id="个人感想"><a href="#个人感想" class="headerlink" title="个人感想"></a>个人感想</h3><p>其实我想了想写程序的我们不就是追求美感和效率吗？</p><p>当二者兼顾的时候，那应该已经超过很多人了把hhh，个人理解</p><hr><p>所以这个枚举子集的方法你学会了吗？😊😊😊</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+      <category>笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>计算机技术</tag>
+      
+      <tag>算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>IEEE754</title>
+    <link href="/posts/2366819883.html"/>
+    <url>/posts/2366819883.html</url>
+    
+    <content type="html"><![CDATA[<p>这篇文章将介绍IEEE754 浮点数二进制存储标准</p><span id="more"></span><h1 id="浮点数存储"><a href="#浮点数存储" class="headerlink" title="浮点数存储"></a>浮点数存储</h1><p>由一个我的经历来引出今天的博文</p><p>今天在看算法题解的时候看见一个人把double类型的初值赋值成了1e20，这个引起了我的深思，因为double同long long同为8字节存储，但是long long却只能存储最大到1e18这个数量级，而这个double通过查询居然可以过分的存储到1e308，这我完全是蒙圈的。所以通过学习就有了这篇博客。</p><h2 id="IEEE浮点数二进制算数标准"><a href="#IEEE浮点数二进制算数标准" class="headerlink" title="IEEE浮点数二进制算数标准"></a>IEEE浮点数二进制算数标准</h2><p>通过学习我发现浮点数拥有一个新的存储标准，这个标准就是IEEE754</p><h3 id="组成（此文都以单精度浮点数为例）"><a href="#组成（此文都以单精度浮点数为例）" class="headerlink" title="组成（此文都以单精度浮点数为例）"></a>组成（此文都以单精度浮点数为例）</h3><p>在IEEE 754标准中浮点数由三部分组成：</p><ul><li>符号位（sign bit）</li><li>有偏指数（biased exponent）</li><li>小数（fraction）</li></ul><p>浮点数分为两种，单精度浮点数（single precision）和双精度浮点数（double precision），它们两个所占的位数不同。</p><p>单精度浮点数（共32位）：<br>1个符号位<br>8个指数位<br>23个小数位</p><p><img src="http://jin-xuanjie.gitee.io/note-pad/1070689-20190310165139947-1347641585.png" alt="img"></p><h4 id="符号位："><a href="#符号位：" class="headerlink" title="符号位："></a>符号位：</h4><p>符号位决定符号，这个很好理解</p><h4 id="指数位："><a href="#指数位：" class="headerlink" title="指数位："></a>指数位：</h4><p>这里是利用了移码的存储规则，也就是说是存在偏移量的，-3 在单精度浮点中会被偏移成124</p><h4 id="小数位："><a href="#小数位：" class="headerlink" title="小数位："></a>小数位：</h4><p>这里是以2的负几次幂分之以来表示，从而会出现精度问题。</p><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>因为小数位是以2的负几次幂的存储方式，必定会有精度差，所以我们判断小数是否相等的时候是不就必定不能用双等了呢？</p><p>答案是肯定的</p><hr><p>所以IEEE754规则你学会了吗？😊😊😊</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>计算机原理</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>计算机技术</tag>
+      
+      <tag>计算机原理</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>可持久化数据结构</title>
     <link href="/posts/849974245.html"/>
     <url>/posts/849974245.html</url>

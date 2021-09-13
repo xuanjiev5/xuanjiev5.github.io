@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="本文将分享一个破链成环的方法">
+  <meta name="description" content="本文将分享一个状压dp的一类题：基于子集的动态规划">
   <meta name="author" content="金铉杰">
   <meta name="keywords" content="">
   
-  <title>破链成环方法 - Jinxuanjie&#39;s Blog</title>
+  <title>基于子集的状压dp - Jinxuanjie&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="破链成环方法">
+            <span class="h2" id="subtitle" title="基于子集的状压dp">
               
             </span>
 	
@@ -178,8 +178,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-20 20:27" pubdate>
-        2021年8月20日 晚上
+      <time datetime="2021-09-13 21:29" pubdate>
+        2021年9月13日 晚上
       </time>
     </span>
   
@@ -190,7 +190,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      559 字
+      505 字
     </span>
   
 
@@ -200,7 +200,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      5
        分钟
     </span>
   
@@ -238,40 +238,37 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">破链成环方法</h1>
+            <h1 style="display: none">基于子集的状压dp</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：24 天前
+                  本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <p>本文将分享一个破链成环的方法</p>
+              <p>本文将分享一个状压dp的一类题：基于子集的动态规划</p>
 <span id="more"></span>
 
-<p>由一道题引出今天破链成环方法的技巧</p>
-<blockquote>
-<p>一天可以被分为 n 个时段。</p>
-<p>一个工人的每日工作安排可以用一个长度为 n 的 0101 序列 a1,a2,…,an 来表示。</p>
-<p>ai 为 00 表示第 ii 个时间段是工作时间ai 为 1 表示第 i个时间段是休息时间。</p>
-<p>工人日复一日的严格按照这个工作安排来进行工作和休息。</p>
-<p>请问，工人的最长连续休息时间有多长（单位：时段）？</p>
-<p>注意，连续休息时间可能跨天。</p>
-<p>保证工人至少在一个时间段处于工作状态。</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 T，表示共有 T 组测试数据。</p>
-<p>每组数据第一行包含整数 n。</p>
-<p>第二行包含 n 个整数 a1,a2,…,an</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>每组数据输出一行结果，表示最长连续休息时间。</p>
-<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤T≤10<br>1≤n≤2×105<br>0≤ai≤1<br>同一测试点内所有 n 的和不超过 2×1052×105。</p>
-<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight basic"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs basic"><span class="hljs-number">4</span><br><span class="hljs-number">5</span><br><span class="hljs-symbol">1 </span><span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span><br><span class="hljs-number">6</span><br><span class="hljs-symbol">0 </span><span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span><br><span class="hljs-number">7</span><br><span class="hljs-symbol">1 </span><span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span><br><span class="hljs-number">3</span><br><span class="hljs-symbol">0 </span><span class="hljs-number">0</span> <span class="hljs-number">0</span><br></code></pre></div></td></tr></table></figure>
+<h2 id="前序"><a href="#前序" class="headerlink" title="前序"></a>前序</h2><p>写此篇文章的原因也是因为在周赛遇到了此问题，当时用的是dfs+剪枝解决，后来观看一些人的题解发现利用了状压dp，也学到了很多的东西</p>
+<h1 id="状压dp"><a href="#状压dp" class="headerlink" title="状压dp"></a>状压dp</h1><p>其实，状压 DP 就是枚举所有情况的 「 暴力 」。</p>
+<p>状态压缩，其实就是将每个任务 <code>task[i]</code> 看作某个 「 十进制数字 」 的<strong>二进制上的第 <code>i</code> 位</strong>，<code>1</code> 表示该任务被选择，反之不被选择。</p>
+<p><strong>Tips</strong>： 十进制数字是多少我们根本不用关心，我们关心的是它的二进制长啥样。</p>
+<p>状态压缩可以简单的理解为把一个布尔 boolean 数组压缩到了一个十进制数字上，之后便可以使用位运算的各种技巧来简化代码逻辑，这可比布尔数组好用多了！(๑•̀ㅂ•́)و✧</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-comment">// m =&gt; 总状态数</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; m; i++) &#123;<br>    <span class="hljs-comment">// 枚举状态 i 的二进制子集</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i; j &gt; <span class="hljs-number">0</span>; j = (j - <span class="hljs-number">1</span>) &amp; i) &#123;<br>        <span class="hljs-comment">// To Do..</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
-<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">2<br>2<br>3<br>0<br></code></pre></div></td></tr></table></figure>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">400010</span>;<br><br><span class="hljs-keyword">int</span> n;<br><span class="hljs-keyword">int</span> w[N];<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> T;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;T);<br>    <span class="hljs-keyword">while</span> (T -- )<br>    &#123;<br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>        &#123;<br>            <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;w[i]);<br>            w[n + i] = w[i];<br>        &#125;<br><br>        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, s = <span class="hljs-number">0</span>; i &lt; n * <span class="hljs-number">2</span>; i ++ )<br>            <span class="hljs-keyword">if</span> (w[i])<br>            &#123;<br>                s ++ ;<br>                res = <span class="hljs-built_in">max</span>(res, s);<br>            &#125;<br>            <span class="hljs-keyword">else</span> s = <span class="hljs-number">0</span>;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, res);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>其实状压dp并不会很难，然后这里是主要想说明一个枚举自己的一个方式，就是 j = (j - 1) &amp; i) </p>
+<p>如果不会这步暴力来写的话：</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-comment">// m =&gt; 总状态数</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; m; i++) &#123;<br>    <span class="hljs-comment">// 从 [1, i] 就可以了，后面的一定不会是 i 的子集</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= i; j++) &#123;<br>        <span class="hljs-comment">// 检查状态 j 是不是状态 i 的二进制子集</span><br>        <span class="hljs-keyword">if</span> ((i | j) == i) &#123;<br>            <span class="hljs-comment">// To Do..</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
-<p>题意：休息时间可以跨天，那么就是告诉我们这个的数据背景就是一个环，日复一日的在循环，这里如果我们硬做的话，我们需要特判最后的那个，并且也非常的麻烦，在这道题可能还没啥，所以我们会用到以上的这个破链成环的方法，开俩倍区间，然后这个序列循环俩次，来算出正确答案</p>
-<p>第一次做的时候没有想到这个方法，用的是分类讨论，这个方法是真的非常好用</p>
+<p>很明显的看出，第二个代码有些许的笨重并且没有任何美感hhh</p>
+<h3 id="个人感想"><a href="#个人感想" class="headerlink" title="个人感想"></a>个人感想</h3><p>其实我想了想写程序的我们不就是追求美感和效率吗？</p>
+<p>当二者兼顾的时候，那应该已经超过很多人了把hhh，个人理解</p>
+<hr>
+
+
+
+<p>所以这个枚举子集的方法你学会了吗？😊😊😊</p>
 
             </div>
             <hr>
@@ -310,18 +307,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/3254579777.html">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">异或解题技巧</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/1920835834.html">
-                        <span class="hidden-mobile">lc第254场周赛</span>
+                      <a href="/posts/2366819883.html">
+                        <span class="hidden-mobile">IEEE754</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

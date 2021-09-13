@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="本文将分享一个破链成环的方法">
+  <meta name="description" content="这篇文章将介绍IEEE754 浮点数二进制存储标准">
   <meta name="author" content="金铉杰">
   <meta name="keywords" content="">
   
-  <title>破链成环方法 - Jinxuanjie&#39;s Blog</title>
+  <title>IEEE754 - Jinxuanjie&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="破链成环方法">
+            <span class="h2" id="subtitle" title="IEEE754">
               
             </span>
 	
@@ -178,8 +178,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-20 20:27" pubdate>
-        2021年8月20日 晚上
+      <time datetime="2021-09-13 21:10" pubdate>
+        2021年9月13日 晚上
       </time>
     </span>
   
@@ -190,7 +190,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      559 字
+      434 字
     </span>
   
 
@@ -200,7 +200,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      4
        分钟
     </span>
   
@@ -238,40 +238,38 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">破链成环方法</h1>
+            <h1 style="display: none">IEEE754</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：24 天前
+                  本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <p>本文将分享一个破链成环的方法</p>
+              <p>这篇文章将介绍IEEE754 浮点数二进制存储标准</p>
 <span id="more"></span>
 
-<p>由一道题引出今天破链成环方法的技巧</p>
-<blockquote>
-<p>一天可以被分为 n 个时段。</p>
-<p>一个工人的每日工作安排可以用一个长度为 n 的 0101 序列 a1,a2,…,an 来表示。</p>
-<p>ai 为 00 表示第 ii 个时间段是工作时间ai 为 1 表示第 i个时间段是休息时间。</p>
-<p>工人日复一日的严格按照这个工作安排来进行工作和休息。</p>
-<p>请问，工人的最长连续休息时间有多长（单位：时段）？</p>
-<p>注意，连续休息时间可能跨天。</p>
-<p>保证工人至少在一个时间段处于工作状态。</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 T，表示共有 T 组测试数据。</p>
-<p>每组数据第一行包含整数 n。</p>
-<p>第二行包含 n 个整数 a1,a2,…,an</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>每组数据输出一行结果，表示最长连续休息时间。</p>
-<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤T≤10<br>1≤n≤2×105<br>0≤ai≤1<br>同一测试点内所有 n 的和不超过 2×1052×105。</p>
-<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight basic"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs basic"><span class="hljs-number">4</span><br><span class="hljs-number">5</span><br><span class="hljs-symbol">1 </span><span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span><br><span class="hljs-number">6</span><br><span class="hljs-symbol">0 </span><span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span><br><span class="hljs-number">7</span><br><span class="hljs-symbol">1 </span><span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span><br><span class="hljs-number">3</span><br><span class="hljs-symbol">0 </span><span class="hljs-number">0</span> <span class="hljs-number">0</span><br></code></pre></div></td></tr></table></figure>
+<h1 id="浮点数存储"><a href="#浮点数存储" class="headerlink" title="浮点数存储"></a>浮点数存储</h1><p>由一个我的经历来引出今天的博文</p>
+<p>今天在看算法题解的时候看见一个人把double类型的初值赋值成了1e20，这个引起了我的深思，因为double同long long同为8字节存储，但是long long却只能存储最大到1e18这个数量级，而这个double通过查询居然可以过分的存储到1e308，这我完全是蒙圈的。所以通过学习就有了这篇博客。</p>
+<h2 id="IEEE浮点数二进制算数标准"><a href="#IEEE浮点数二进制算数标准" class="headerlink" title="IEEE浮点数二进制算数标准"></a>IEEE浮点数二进制算数标准</h2><p>通过学习我发现浮点数拥有一个新的存储标准，这个标准就是IEEE754</p>
+<h3 id="组成（此文都以单精度浮点数为例）"><a href="#组成（此文都以单精度浮点数为例）" class="headerlink" title="组成（此文都以单精度浮点数为例）"></a>组成（此文都以单精度浮点数为例）</h3><p>在IEEE 754标准中浮点数由三部分组成：</p>
+<ul>
+<li>符号位（sign bit）</li>
+<li>有偏指数（biased exponent）</li>
+<li>小数（fraction）</li>
+</ul>
+<p>浮点数分为两种，单精度浮点数（single precision）和双精度浮点数（double precision），它们两个所占的位数不同。</p>
+<p>单精度浮点数（共32位）：<br>1个符号位<br>8个指数位<br>23个小数位</p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/1070689-20190310165139947-1347641585.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="符号位："><a href="#符号位：" class="headerlink" title="符号位："></a>符号位：</h4><p>符号位决定符号，这个很好理解</p>
+<h4 id="指数位："><a href="#指数位：" class="headerlink" title="指数位："></a>指数位：</h4><p>这里是利用了移码的存储规则，也就是说是存在偏移量的，-3 在单精度浮点中会被偏移成124</p>
+<h4 id="小数位："><a href="#小数位：" class="headerlink" title="小数位："></a>小数位：</h4><p>这里是以2的负几次幂分之以来表示，从而会出现精度问题。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>因为小数位是以2的负几次幂的存储方式，必定会有精度差，所以我们判断小数是否相等的时候是不就必定不能用双等了呢？</p>
+<p>答案是肯定的</p>
+<hr>
 
-<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">2<br>2<br>3<br>0<br></code></pre></div></td></tr></table></figure>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">400010</span>;<br><br><span class="hljs-keyword">int</span> n;<br><span class="hljs-keyword">int</span> w[N];<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> T;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;T);<br>    <span class="hljs-keyword">while</span> (T -- )<br>    &#123;<br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>        &#123;<br>            <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;w[i]);<br>            w[n + i] = w[i];<br>        &#125;<br><br>        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, s = <span class="hljs-number">0</span>; i &lt; n * <span class="hljs-number">2</span>; i ++ )<br>            <span class="hljs-keyword">if</span> (w[i])<br>            &#123;<br>                s ++ ;<br>                res = <span class="hljs-built_in">max</span>(res, s);<br>            &#125;<br>            <span class="hljs-keyword">else</span> s = <span class="hljs-number">0</span>;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, res);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-
-<p>题意：休息时间可以跨天，那么就是告诉我们这个的数据背景就是一个环，日复一日的在循环，这里如果我们硬做的话，我们需要特判最后的那个，并且也非常的麻烦，在这道题可能还没啥，所以我们会用到以上的这个破链成环的方法，开俩倍区间，然后这个序列循环俩次，来算出正确答案</p>
-<p>第一次做的时候没有想到这个方法，用的是分类讨论，这个方法是真的非常好用</p>
+<p>所以IEEE754规则你学会了吗？😊😊😊</p>
 
             </div>
             <hr>
@@ -281,9 +279,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-                    
-                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/%E7%AC%94%E8%AE%B0/">笔记</a>
+                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
                     
                   </div>
                 
@@ -293,7 +289,7 @@
                     
                       <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/">计算机技术</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
                     
                   </div>
                 
@@ -310,9 +306,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/3254579777.html">
+                      <a href="/posts/3960819418.html">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">异或解题技巧</span>
+                        <span class="hidden-mobile">基于子集的状压dp</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -320,8 +316,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/1920835834.html">
-                        <span class="hidden-mobile">lc第254场周赛</span>
+                      <a href="/posts/849974245.html">
+                        <span class="hidden-mobile">可持久化数据结构</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
