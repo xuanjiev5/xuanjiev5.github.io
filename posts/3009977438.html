@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="今天第一次献血，也算是完成了自己之前比较怕的事情吧！">
+  <meta name="description" content="本文是琴理工作室算法组第一次选拔赛的题解">
   <meta name="author" content="金铉杰">
   <meta name="keywords" content="">
   
-  <title>第一次献血 - Jinxuanjie&#39;s Blog</title>
+  <title>琴理工作室选拔赛题解 - Jinxuanjie&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="第一次献血">
+            <span class="h2" id="subtitle" title="琴理工作室选拔赛题解">
               
             </span>
 	
@@ -178,8 +178,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-05 18:12" pubdate>
-        2021年7月5日 晚上
+      <time datetime="2021-10-31 11:23" pubdate>
+        2021年10月31日 上午
       </time>
     </span>
   
@@ -190,7 +190,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      319 字
+      929 字
     </span>
   
 
@@ -200,7 +200,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      9
        分钟
     </span>
   
@@ -238,29 +238,67 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">第一次献血</h1>
+            <h1 style="display: none">琴理工作室选拔赛题解</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2 个月前
+                  本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <p>今天第一次献血，也算是完成了自己之前比较怕的事情吧！</p>
+              <p>本文是琴理工作室算法组第一次选拔赛的题解</p>
 <span id="more"></span>
 
-<p>原本没有想着去，因为室友的一句话，就动了要去的念头。其实还真的蛮怕的，主要的恐惧还是因为未知，所以就想要挑战一下自己吧。</p>
-<p>另一方面呢想了想，其实对于我们来说不会任何坏处，甚至会有好处，如果我们的这一点点的努力，真的可以让一些人得到帮助，我觉得就凭这个也值得我去做。</p>
-<p>种种原因驱使着我去了献血······</p>
-<p>献完血后，之前的恐惧也就烟消云散了，这算不算战胜了自己呢？hh</p>
-<p>有时候我们拼了命的翻山越岭，去越过山头，有时候山的另一面可能真的没啥，或许还比山的这面还要差，有时候我们很怕的事情到头来也不过是过眼云烟</p>
-<p><strong>不管怎样吧，常怀赤子之心，不坠青云之志，我觉得就够了，希望之后我在任何事情上，都会有今天的勇气去不断战胜自己，加油吧！</strong></p>
-<p>献的时候忘记照相了，就附俩张献血证的照片吧hh：</p>
-<img src="http://jin-xuanjie.gitee.io/note-pad\image-20210705185335114.png" srcset="/img/loading.gif" lazyload alt="image-20210705185335114" style="zoom: 25%;" />
+<h1 id="题解？（给出思路）"><a href="#题解？（给出思路）" class="headerlink" title="题解？（给出思路）"></a>题解？（给出思路）</h1><p>本文不会出现任何代码，若想观看代码，请移步▶▶ <a target="_blank" rel="noopener" href="https://gitee.com/jin-xuanjie/qin-li-studio-algorithm-group/tree/master/firstTrials">选拔赛代码</a></p>
+<h2 id="难度？"><a href="#难度？" class="headerlink" title="难度？"></a>难度？</h2><p>还好吧，几乎都是秒出思路的题</p>
+<h3 id="T1（签到题）"><a href="#T1（签到题）" class="headerlink" title="T1（签到题）"></a>T1（签到题）</h3><blockquote>
+<p>其实就是扫描一遍数组去找<strong>是否存在</strong>这个特定的值。可能是好多人题目没读懂？</p>
+</blockquote>
+<h3 id="T2（中档题）"><a href="#T2（中档题）" class="headerlink" title="T2（中档题）"></a>T2（中档题）</h3><blockquote>
+<p>利用哈希的思想（不懂的也没关系）</p>
+<p>先从头到尾扫描一遍，然后记录出每个字符出现的次数，然后再次扫描，扫描出字符个数为1的那个字符直接输出然后结束就可以了</p>
+<p>若没有输出NO就可以了。既然有可能没有，那么必须要打布尔标记咯~</p>
+</blockquote>
+<h3 id="T3-困难题，其实就是在防ak，防的是c语言选手的ak，java选手表示太简单"><a href="#T3-困难题，其实就是在防ak，防的是c语言选手的ak，java选手表示太简单" class="headerlink" title="T3 (困难题，其实就是在防ak，防的是c语言选手的ak，java选手表示太简单)"></a>T3 (困难题，其实就是在防ak，防的是c语言选手的ak，java选手表示太简单)</h3><blockquote>
+<p>这里的不确定因素就是第一个和第二个串谁长，所以到后来要一直分类讨论。</p>
+<p>这类问题有一个通用的解法，不管是谁长，我们都把长的交换到第一个串，这样之后会免掉分类讨论这一环。</p>
+<p>判断子串的方式呢就是双指针算法了，可以使用每个位置比对的暴力方法，有能力者当然也可以使用kmp算法。</p>
+</blockquote>
+<h3 id="T4-签到题"><a href="#T4-签到题" class="headerlink" title="T4(签到题)"></a>T4(签到题)</h3><blockquote>
+<p>按照题目指示做就可以了，没啥难的</p>
+<p>唯一的难点就在于如何分解每一位数，利用 %10 /10这个方法来分解每一位数</p>
+<p>也可以用我给大家提供的标程，char数组的方法来处理，也比较好理解</p>
+</blockquote>
+<h3 id="T5（防ak题，思维题（贪心题））"><a href="#T5（防ak题，思维题（贪心题））" class="headerlink" title="T5（防ak题，思维题（贪心题））"></a>T5（防ak题，思维题（贪心题））</h3><blockquote>
+<p>这一步要先把题看懂%%%</p>
+<p>假设这里你已经把题看懂了，看懂后思考片刻大家就会发现一个事情，想让自己存在某个科目的分并不是最低的，有一个万能构造法就是，第一个科目所有人降序排列分，第二个科目所有人升序排列分，那么一定有人某个会比自己的分数低。</p>
+<p>想懂了这个其实就很简单了，但是比赛中却没有人碰这道题😦😦😦</p>
+</blockquote>
+<h3 id="T6（中档题）"><a href="#T6（中档题）" class="headerlink" title="T6（中档题）"></a>T6（中档题）</h3><blockquote>
+<p>如果你把这个东西乘上 10的要求位数的次幂，一定会超出int 或者是long long 的范围，那必然会有一些数据算不出来。</p>
+<p>如果你会高精算我没说（<strong>java选手，py选手哼哧一笑</strong>）</p>
+<p>如果你是c语言或者是c++，那么就要手写高精，这工作量将巨大</p>
+<p>这里给出一个方法就是，利用我们小学列竖式的方法去一步一步算出那位小数，具体可以观看代码，明天会讲这个解法。</p>
+</blockquote>
+<h3 id="T7（签到题）"><a href="#T7（签到题）" class="headerlink" title="T7（签到题）"></a>T7（签到题）</h3><blockquote>
+<p>按照题目标准枚举就好了</p>
+</blockquote>
+<h3 id="T8（中档题）"><a href="#T8（中档题）" class="headerlink" title="T8（中档题）"></a>T8（中档题）</h3><blockquote>
+<p>用到了一个高中阶段的数学结论—-<strong>n元均值不等式</strong></p>
+<p>利用这个不等式，告诉我们在和为一定的时候，当三个数越靠近乘积越大，通过这个想法来说这道题不久解决了😀😀</p>
+</blockquote>
+<h3 id="T9（防爆零题）"><a href="#T9（防爆零题）" class="headerlink" title="T9（防爆零题）"></a>T9（防爆零题）</h3><blockquote>
+<p>不多讲了，大家都会！</p>
+</blockquote>
+<h3 id="T10（签到题）"><a href="#T10（签到题）" class="headerlink" title="T10（签到题）"></a>T10（签到题）</h3><blockquote>
+<p>其实就是对x和y坐标取一个绝对值判断它是否小于1就完事了，不多讲了，大家也都会</p>
+</blockquote>
+<hr>
 
-<img src="http://jin-xuanjie.gitee.io/note-pad\image-20210705185434461.png" srcset="/img/loading.gif" lazyload alt="image-20210705185434461" style="zoom:33%;" />
-
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>这样看完大家还觉得很难吗，希望大家通过之后的学习，都可以对这套题目哼哧一笑，露出非常不屑的表情。😎😎</p>
+<p>之后的训练赛还有很多，希望大家加油呀！！</p>
+<p>所以这套题目，你学会了吗😉😉😉</p>
 
             </div>
             <hr>
@@ -270,7 +308,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+                      <a class="hover-with-bg" href="/categories/%E7%90%B4%E7%90%86%E5%B7%A5%E4%BD%9C%E5%AE%A4%E7%AE%97%E6%B3%95%E7%BB%84%E6%95%99%E5%AD%A6/">琴理工作室算法组教学</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%90%B4%E7%90%86%E5%B7%A5%E4%BD%9C%E5%AE%A4%E7%AE%97%E6%B3%95%E7%BB%84%E6%95%99%E5%AD%A6/%E9%80%89%E6%8B%94%E8%B5%9B/">选拔赛</a>
                     
                   </div>
                 
@@ -278,9 +318,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%94%9F%E6%B4%BB/">生活</a>
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%97%A5%E8%AE%B0/">日记</a>
+                      <a class="hover-with-bg" href="/tags/%E6%AF%94%E8%B5%9B/">比赛</a>
                     
                   </div>
                 
@@ -297,18 +337,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/3683252258.html">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2021/7/6</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/3038647440.html">
-                        <span class="hidden-mobile">SQL语句</span>
+                      <a href="/posts/227678581.html">
+                        <span class="hidden-mobile">数位dp</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>琴理工作室选拔赛题解</title>
+    <link href="/posts/3009977438.html"/>
+    <url>/posts/3009977438.html</url>
+    
+    <content type="html"><![CDATA[<p>本文是琴理工作室算法组第一次选拔赛的题解</p><span id="more"></span><h1 id="题解？（给出思路）"><a href="#题解？（给出思路）" class="headerlink" title="题解？（给出思路）"></a>题解？（给出思路）</h1><p>本文不会出现任何代码，若想观看代码，请移步▶▶ <a href="https://gitee.com/jin-xuanjie/qin-li-studio-algorithm-group/tree/master/firstTrials">选拔赛代码</a></p><h2 id="难度？"><a href="#难度？" class="headerlink" title="难度？"></a>难度？</h2><p>还好吧，几乎都是秒出思路的题</p><h3 id="T1（签到题）"><a href="#T1（签到题）" class="headerlink" title="T1（签到题）"></a>T1（签到题）</h3><blockquote><p>其实就是扫描一遍数组去找<strong>是否存在</strong>这个特定的值。可能是好多人题目没读懂？</p></blockquote><h3 id="T2（中档题）"><a href="#T2（中档题）" class="headerlink" title="T2（中档题）"></a>T2（中档题）</h3><blockquote><p>利用哈希的思想（不懂的也没关系）</p><p>先从头到尾扫描一遍，然后记录出每个字符出现的次数，然后再次扫描，扫描出字符个数为1的那个字符直接输出然后结束就可以了</p><p>若没有输出NO就可以了。既然有可能没有，那么必须要打布尔标记咯~</p></blockquote><h3 id="T3-困难题，其实就是在防ak，防的是c语言选手的ak，java选手表示太简单"><a href="#T3-困难题，其实就是在防ak，防的是c语言选手的ak，java选手表示太简单" class="headerlink" title="T3 (困难题，其实就是在防ak，防的是c语言选手的ak，java选手表示太简单)"></a>T3 (困难题，其实就是在防ak，防的是c语言选手的ak，java选手表示太简单)</h3><blockquote><p>这里的不确定因素就是第一个和第二个串谁长，所以到后来要一直分类讨论。</p><p>这类问题有一个通用的解法，不管是谁长，我们都把长的交换到第一个串，这样之后会免掉分类讨论这一环。</p><p>判断子串的方式呢就是双指针算法了，可以使用每个位置比对的暴力方法，有能力者当然也可以使用kmp算法。</p></blockquote><h3 id="T4-签到题"><a href="#T4-签到题" class="headerlink" title="T4(签到题)"></a>T4(签到题)</h3><blockquote><p>按照题目指示做就可以了，没啥难的</p><p>唯一的难点就在于如何分解每一位数，利用 %10 /10这个方法来分解每一位数</p><p>也可以用我给大家提供的标程，char数组的方法来处理，也比较好理解</p></blockquote><h3 id="T5（防ak题，思维题（贪心题））"><a href="#T5（防ak题，思维题（贪心题））" class="headerlink" title="T5（防ak题，思维题（贪心题））"></a>T5（防ak题，思维题（贪心题））</h3><blockquote><p>这一步要先把题看懂%%%</p><p>假设这里你已经把题看懂了，看懂后思考片刻大家就会发现一个事情，想让自己存在某个科目的分并不是最低的，有一个万能构造法就是，第一个科目所有人降序排列分，第二个科目所有人升序排列分，那么一定有人某个会比自己的分数低。</p><p>想懂了这个其实就很简单了，但是比赛中却没有人碰这道题😦😦😦</p></blockquote><h3 id="T6（中档题）"><a href="#T6（中档题）" class="headerlink" title="T6（中档题）"></a>T6（中档题）</h3><blockquote><p>如果你把这个东西乘上 10的要求位数的次幂，一定会超出int 或者是long long 的范围，那必然会有一些数据算不出来。</p><p>如果你会高精算我没说（<strong>java选手，py选手哼哧一笑</strong>）</p><p>如果你是c语言或者是c++，那么就要手写高精，这工作量将巨大</p><p>这里给出一个方法就是，利用我们小学列竖式的方法去一步一步算出那位小数，具体可以观看代码，明天会讲这个解法。</p></blockquote><h3 id="T7（签到题）"><a href="#T7（签到题）" class="headerlink" title="T7（签到题）"></a>T7（签到题）</h3><blockquote><p>按照题目标准枚举就好了</p></blockquote><h3 id="T8（中档题）"><a href="#T8（中档题）" class="headerlink" title="T8（中档题）"></a>T8（中档题）</h3><blockquote><p>用到了一个高中阶段的数学结论—-<strong>n元均值不等式</strong></p><p>利用这个不等式，告诉我们在和为一定的时候，当三个数越靠近乘积越大，通过这个想法来说这道题不久解决了😀😀</p></blockquote><h3 id="T9（防爆零题）"><a href="#T9（防爆零题）" class="headerlink" title="T9（防爆零题）"></a>T9（防爆零题）</h3><blockquote><p>不多讲了，大家都会！</p></blockquote><h3 id="T10（签到题）"><a href="#T10（签到题）" class="headerlink" title="T10（签到题）"></a>T10（签到题）</h3><blockquote><p>其实就是对x和y坐标取一个绝对值判断它是否小于1就完事了，不多讲了，大家也都会</p></blockquote><hr><h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>这样看完大家还觉得很难吗，希望大家通过之后的学习，都可以对这套题目哼哧一笑，露出非常不屑的表情。😎😎</p><p>之后的训练赛还有很多，希望大家加油呀！！</p><p>所以这套题目，你学会了吗😉😉😉</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>琴理工作室算法组教学</category>
+      
+      <category>选拔赛</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>比赛</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>数位dp</title>
     <link href="/posts/227678581.html"/>
     <url>/posts/227678581.html</url>
