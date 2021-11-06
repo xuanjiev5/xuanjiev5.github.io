@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="这篇文章将介绍IEEE754 浮点数二进制存储标准">
+  <meta name="description" content="本文将介绍c++中stringstream类在算法竞赛中的常用方法">
   <meta name="author" content="金铉杰">
   <meta name="keywords" content="">
   
-  <title>IEEE754 - Jinxuanjie&#39;s Blog</title>
+  <title>stringstream用法 - Jinxuanjie&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="IEEE754">
+            <span class="h2" id="subtitle" title="stringstream用法">
               
             </span>
 	
@@ -178,8 +178,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-13 21:10" pubdate>
-        2021年9月13日 晚上
+      <time datetime="2021-11-06 10:34" pubdate>
+        2021年11月6日 上午
       </time>
     </span>
   
@@ -190,7 +190,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      739 字
+      542 字
     </span>
   
 
@@ -200,7 +200,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      7
        分钟
     </span>
   
@@ -238,67 +238,53 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">IEEE754</h1>
+            <h1 style="display: none">stringstream用法</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：5 天前
+                  本文最后更新于：几秒前
                 
               </p>
             
             <div class="markdown-body">
-              <p>这篇文章将介绍IEEE754 浮点数二进制存储标准</p>
+              <p>本文将介绍c++中stringstream类在算法竞赛中的常用方法</p>
 <span id="more"></span>
 
-<h1 id="浮点数存储"><a href="#浮点数存储" class="headerlink" title="浮点数存储"></a>浮点数存储</h1><p>由一个我的经历来引出今天的博文</p>
-<p>今天在看算法题解的时候看见一个人把double类型的初值赋值成了1e20，这个引起了我的深思，因为double同long long同为8字节存储，但是long long却只能存储最大到1e18这个数量级，而这个double通过查询居然可以过分的存储到1e308，这我完全是蒙圈的。所以通过学习就有了这篇博客。</p>
-<h2 id="IEEE浮点数二进制算数标准"><a href="#IEEE浮点数二进制算数标准" class="headerlink" title="IEEE浮点数二进制算数标准"></a>IEEE浮点数二进制算数标准</h2><p>通过学习我发现浮点数拥有一个新的存储标准，这个标准就是IEEE754</p>
-<h3 id="组成（此文都以单精度浮点数为例）"><a href="#组成（此文都以单精度浮点数为例）" class="headerlink" title="组成（此文都以单精度浮点数为例）"></a>组成（此文都以单精度浮点数为例）</h3><p>在IEEE 754标准中浮点数由三部分组成：</p>
-<ul>
-<li>符号位（sign bit）</li>
-<li>有偏指数（biased exponent）</li>
-<li>小数（fraction）</li>
-</ul>
-<p>浮点数分为两种，单精度浮点数（single precision）和双精度浮点数（double precision），它们两个所占的位数不同。</p>
-<p>单精度浮点数（共32位）：<br>1个符号位<br>8个指数位<br>23个小数位</p>
-<p><img src="http://jin-xuanjie.gitee.io/note-pad/1070689-20190310165139947-1347641585.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>双精度浮点数：</p>
-<p>1个符号位</p>
-<p>11个指数为</p>
-<p>52个小数位</p>
-<h4 id="符号位："><a href="#符号位：" class="headerlink" title="符号位："></a>符号位：</h4><p>符号位决定符号，这个很好理解</p>
-<h4 id="指数位："><a href="#指数位：" class="headerlink" title="指数位："></a>指数位：</h4><p>这里是利用了移码的存储规则，也就是说是存在偏移量的，-3 在单精度浮点中会被偏移成124</p>
-<h4 id="小数位："><a href="#小数位：" class="headerlink" title="小数位："></a>小数位：</h4><p>这里是以2的负几次幂分之以来表示，从而会出现精度问题。</p>
-<h4 id="二进制原码："><a href="#二进制原码：" class="headerlink" title="二进制原码："></a>二进制原码：</h4><p>二进制原数 = （-1）^ 符号位 * （2）^ 阶码真值 * 尾数真值</p>
-<h3 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h3><p>例如178.125</p>
-<ol>
-<li><p>先把浮点数分别把整数部分和小数部分转换成2进制</p>
-<ol>
-<li>整数部分用除2取余的方法，求得：10110010</li>
-<li>小数部分用乘2取整的方法，求得：001</li>
-<li>合起来即是：10110010.001</li>
-<li>转换成二进制的浮点数，即把小数点移动到整数位只有1，即为：1.0110010001 * 2^111，111是二进制，由于左移了7位，所以是111</li>
-</ol>
-</li>
-<li><p>把浮点数转换二进制后，这里基本已经可以得出对应3部分的值了</p>
-<ol>
-<li><p>数符：由于浮点数是整数，故为0.(负数为1)</p>
-</li>
-<li><p>阶码 : 阶码是需要作移码运算，在转换出来的二进制数里，阶数是111(十进制为7)，对于单精度的浮点数，偏移值为01111111(127)[偏移量的计算是：2^(e-1)-1, e为阶码的位数，即为8，因此偏移值是127]，即：111+01111111 = 10000110</p>
-</li>
-<li><p>尾数：小数点后面的数，即0110010001</p>
-</li>
-<li><p>最终根据位置填到对位的位置上：</p>
-<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20211101151638074.png" srcset="/img/loading.gif" lazyload alt="image-20211101151638074"></p>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>因为小数位是以2的负几次幂的存储方式，必定会有精度差，所以我们判断小数是否相等的时候是不就必定不能用双等了呢？</p>
-<p>答案是肯定的</p>
+<h1 id="stringstream"><a href="#stringstream" class="headerlink" title="stringstream"></a>stringstream</h1><p>首先呢使用stringstream之前我们要先包含进来一个头文件</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sstring&gt;</span><span class="hljs-comment">//这个库里面不仅stringstream，我们只会用到stringstream</span></span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<p>那我们都能用这个做啥呢？让我娓娓道来😀</p>
 <hr>
 
-<p>所以IEEE754规则你学会了吗？😊😊😊</p>
+
+
+<h2 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h2><p>大家有时候会有一个烦恼，你拿出了一个数字你想把他转成字符串，又或者你想把一个字符串转成数字，那么stringstream将满足你</p>
+<p>看看代码吧：</p>
+<h3 id="int-–-gt-string"><a href="#int-–-gt-string" class="headerlink" title="int –&gt;string"></a>int –&gt;string</h3><figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sstream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br> <br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br> <br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    stringstream sstream;<br>    string strResult;<br>    <span class="hljs-keyword">int</span> nValue = <span class="hljs-number">1000</span>;<br> <br>    <span class="hljs-comment">// 将int类型的值放入输入流中</span><br>    sstream &lt;&lt; nValue;<br>    <span class="hljs-comment">// 从sstream中抽取前面插入的int类型的值，赋给string类型</span><br>    sstream &gt;&gt; strResult;<br> <br>    cout &lt;&lt; <span class="hljs-string">&quot;[cout]strResult is: &quot;</span> &lt;&lt; strResult &lt;&lt; endl;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;[printf]strResult is: %s\n&quot;</span>, strResult.<span class="hljs-built_in">c_str</span>());<br> <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<h3 id="string-–-gt-int"><a href="#string-–-gt-int" class="headerlink" title="string –&gt; int"></a>string –&gt; int</h3><figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sstream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">int</span> n;<br>   	<span class="hljs-function">istringstream <span class="hljs-title">inbuf</span><span class="hljs-params">(<span class="hljs-string">&quot;-10&quot;</span>)</span></span>;<br>    nbuf &gt;&gt; n;<br>    cout &lt;&lt; <span class="hljs-string">&quot;n = &quot;</span> &lt;&lt; n &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p><strong>这里有个坑点，如果想多次进行类型转换，请把stringstream清空哈，说一下如何清空</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++">ssin.<span class="hljs-built_in">clear</span>();<span class="hljs-comment">//重置状态标志</span><br>ssin.<span class="hljs-built_in">str</span>(<span class="hljs-string">&quot;&quot;</span>);<span class="hljs-comment">//清空数据，因为这个很占内存，要及时清空数据</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h2 id="分割一行中的空格制表符等（课上讲过了）"><a href="#分割一行中的空格制表符等（课上讲过了）" class="headerlink" title="分割一行中的空格制表符等（课上讲过了）"></a>分割一行中的空格制表符等（课上讲过了）</h2><p>通用模板：</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++">string line;<br>	<br><span class="hljs-built_in">getline</span>(cin, line);<br>	<br><span class="hljs-function">stringstream <span class="hljs-title">ssin</span><span class="hljs-params">(line)</span></span>;<br>	<br>string node;<br><br><span class="hljs-keyword">while</span> (ssin &gt;&gt; node)<br>	&#123;<br>		<span class="hljs-comment">//处理输入细节</span><br>	&#125;<br><span class="hljs-comment">//处理离线细节</span><br>	<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<h2 id="多个字符串的拼接"><a href="#多个字符串的拼接" class="headerlink" title="多个字符串的拼接"></a>多个字符串的拼接</h2><figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sstream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br> <br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br> <br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    stringstream sstream;<br> <br>    <span class="hljs-comment">// 将多个字符串放入 sstream 中</span><br>    sstream &lt;&lt; <span class="hljs-string">&quot;first&quot;</span> &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; <span class="hljs-string">&quot;string,&quot;</span>;<br>    sstream &lt;&lt; <span class="hljs-string">&quot; second string&quot;</span>;<br>    cout &lt;&lt; <span class="hljs-string">&quot;strResult is: &quot;</span> &lt;&lt; sstream.<span class="hljs-built_in">str</span>() &lt;&lt; endl;<br> <br>    <span class="hljs-comment">// 清空 sstream</span><br>    sstream.<span class="hljs-built_in">str</span>(<span class="hljs-string">&quot;&quot;</span>);<br>    sstream &lt;&lt; <span class="hljs-string">&quot;third string&quot;</span>;<br>    cout &lt;&lt; <span class="hljs-string">&quot;After clear, strResult is: &quot;</span> &lt;&lt; sstream.<span class="hljs-built_in">str</span>() &lt;&lt; endl;<br> <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p>利用+运算符也是可以的啦~~😀😀（区别是有的，但是先不讲，在算法竞赛中不会卡这么死）</p>
+<p class="note note-success">stringstream，你学会了吗😁😁</p>
+
 
             </div>
             <hr>
@@ -308,7 +294,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/%E7%AC%94%E8%AE%B0/">笔记</a>
                     
                   </div>
                 
@@ -318,7 +306,7 @@
                     
                       <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/">计算机技术</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
                     
                   </div>
                 
@@ -335,18 +323,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/3960819418.html">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">基于子集的状压dp</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/849974245.html">
-                        <span class="hidden-mobile">可持久化数据结构</span>
+                      <a href="/posts/182611664.html">
+                        <span class="hidden-mobile">c++教案</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
