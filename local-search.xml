@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>容斥原理</title>
+    <link href="/posts/3138397678.html"/>
+    <url>/posts/3138397678.html</url>
+    
+    <content type="html"><![CDATA[<p>本文将讲述容斥原理的证明与应用</p><span id="more"></span><h1 id="容斥原理"><a href="#容斥原理" class="headerlink" title="容斥原理"></a>容斥原理</h1><p><strong>容斥原理看的时候真的很像小学的算面积的感觉，好多面积重叠后还学要减去并计算。其实背后是存在一个数论原理在的</strong></p><h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><blockquote><p>在计数时，必须注意没有重复，没有遗漏。为了使重叠部分不被重复计算，人们研究出一种新的计数方法，这种方法的基本思想是：先不考虑重叠的情况，把包含于某内容中的所有对象的数目先计算出来，然后再把计数时重复计算的数目排斥出去，使得计算的结果既无遗漏又无重复，这种计数的方法称为容斥原理。</p></blockquote><p>以上呢是百度百科的原话，说个人话吧😁😁</p><p>说白了不就是要不重不漏的算出所有要计算的东西咯~</p><h2 id="给出一个例子方便理解"><a href="#给出一个例子方便理解" class="headerlink" title="给出一个例子方便理解"></a>给出一个例子方便理解</h2><p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20211107222407285.png" alt="image-20211107222407285"></p><p>相信大家在初高中一定学过韦恩图，这个东西在各个地方以好理解著称频繁出现，那么我也用这个来解释一下~</p><p>现在抛出一个题目，我们要计算这三个圆占据的总面积，如何计算呢？</p><p>其实很简单：</p><p>s = 1 + 2 + 3 - 4 - 5 - 6 + 7；</p><p>那么我们很容易想到，会不会有一个通项公式去做出这个答案呢？</p><p>这时<strong>容斥原理</strong>就登场了：</p><p>​    <img src="http://jin-xuanjie.gitee.io/note-pad/image-20211107223345726.png" alt="image-20211107223345726"></p><h2 id="咋证明的呀？"><a href="#咋证明的呀？" class="headerlink" title="咋证明的呀？"></a>咋证明的呀？</h2><p>用到了组合数恒等式，之后会整理出来，先不说证明了。</p><h2 id="看一看题吧："><a href="#看一看题吧：" class="headerlink" title="看一看题吧："></a>看一看题吧：</h2><blockquote><p>给定一个整数 n 和 m 个不同的质数 p1,p2,…,pm。</p><p>请你求出 1∼n 中能被 p1,p2,…,pm 中的至少一个数整除的整数有多少个。</p><p>输入格式<br>第一行包含整数 n 和 m。</p><p>第二行包含 m 个质数。</p><p>输出格式<br>输出一个整数，表示满足条件的整数的个数。</p><p>数据范围<br>1≤m≤16,<br>1≤n,pi≤109<br>输入样例：<br>10 2<br>2 3<br>输出样例：<br>7</p></blockquote><figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> LL;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">20</span>;<br><br><span class="hljs-keyword">int</span> q[N];<br><br><span class="hljs-keyword">int</span> n, m;<br>LL res;    <br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i ++ ) cin &gt;&gt; q[i];<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">1</span> &lt;&lt; m; i ++ ) <br>    &#123;<br>        <span class="hljs-keyword">int</span> t = <span class="hljs-number">1</span>, cnt = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; m; j ++ )<br>        &#123;<br>            <span class="hljs-keyword">if</span> (i &gt;&gt; j &amp; <span class="hljs-number">1</span>)<br>            &#123;<br>                <span class="hljs-keyword">if</span> ((LL)t * q[j] &lt;= n)<br>                &#123;<br>                    t *= q[j];<br>                    cnt ++ ;<br>                &#125;<br>                <span class="hljs-keyword">else</span> <br>                &#123;<br>                    t = <span class="hljs-number">-1</span>;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <br>        <span class="hljs-keyword">if</span> (t != <span class="hljs-number">-1</span>)<br>        &#123;<br>            <span class="hljs-keyword">if</span> (cnt % <span class="hljs-number">2</span>)<br>            &#123;<br>                res += n / t;<br>            &#125;<br>            <span class="hljs-keyword">else</span> res -= n / t;<br>        &#125;<br>    &#125;<br>    <br>    cout &lt;&lt; res &lt;&lt; endl;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure><p>其实考察容斥原理的这类题目吧，也不会很难，主要是考察你到底懂不懂这个东西</p><p>很多数论的定理和小学数奥的结论还是要多积累呀！！😃😃</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+      <category>笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>计算机技术</tag>
+      
+      <tag>算法</tag>
+      
+      <tag>数论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>stringstream用法</title>
     <link href="/posts/1102605851.html"/>
     <url>/posts/1102605851.html</url>
