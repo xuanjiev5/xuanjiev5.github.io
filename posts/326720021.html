@@ -190,7 +190,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      1.2k 字
     </span>
   
 
@@ -200,7 +200,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15
+      16
        分钟
     </span>
   
@@ -298,8 +298,49 @@
 <figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">510</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> M = <span class="hljs-number">1e5</span> + <span class="hljs-number">10</span>;<br><br><span class="hljs-keyword">int</span> n1, n2, m;<br><span class="hljs-keyword">int</span> h[N], ne[M], e[M], idx;<br><span class="hljs-keyword">int</span> match[N];<br><span class="hljs-keyword">bool</span> st[N];<br><span class="hljs-keyword">int</span> res;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span><br><span class="hljs-function"></span>&#123;<br>    e[idx] = b;<br>    ne[idx] = h[a];<br>    h[a] = idx ++ ;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = h[x]; ~i; i = ne[i] )<br>    &#123;<br>        <span class="hljs-keyword">int</span> j = e[i];<br>        <span class="hljs-keyword">if</span> (!st[j])<br>        &#123;<br>            st[j] = <span class="hljs-literal">true</span>;<br>            <br>            <span class="hljs-keyword">if</span> (!match[j] || <span class="hljs-built_in">find</span>(match[j]))<br>            &#123;<br>                match[j] = x;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n1 &gt;&gt; n2 &gt;&gt; m;<br>    <br>    <span class="hljs-built_in">memset</span>(h, <span class="hljs-number">-1</span>, <span class="hljs-keyword">sizeof</span> h);<br>    <br>    <span class="hljs-keyword">while</span> (m -- )<br>    &#123;<br>        <span class="hljs-keyword">int</span> a, b;<br>        cin &gt;&gt; a &gt;&gt; b;<br>        <br>        <span class="hljs-built_in">add</span>(a, b);<br>    &#125;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n1; i ++ )<br>    &#123;<br>        <span class="hljs-built_in">memset</span>(st, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span> st);<br>        <br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">find</span>(i)) res ++ ;<br>    &#125;<br>    <br>    cout &lt;&lt; res &lt;&lt; endl;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <br>&#125;<br></code></pre></div></td></tr></table></figure>
 
 <hr>
+至此图论算法就告一段落了，虽然算法真的很多，还是要多加练习才对啊~
 
-<p>至此图论算法就告一段落了，虽然算法真的很多，还是要多加练习才对啊~</p>
+<hr>
+
+<p>下周会开始讲数学部分，会比较快速的rush掉数学方面的知识（因为快比赛了）</p>
+<ul>
+<li>质数<ul>
+<li>朴素筛法，埃氏筛法，线性筛法（欧拉筛）</li>
+<li>分解质因数（试除法）</li>
+<li>判断质数（试除法）</li>
+</ul>
+</li>
+<li>约数<ul>
+<li>求约数（试除法）</li>
+<li>约数个数定理</li>
+<li>约数和定理</li>
+<li>欧几里得算法</li>
+</ul>
+</li>
+<li>欧拉函数<ul>
+<li>线性筛求欧拉函数</li>
+</ul>
+</li>
+<li>快速幂<ul>
+<li>逆元（欧拉定理和费马小定理）</li>
+</ul>
+</li>
+<li>扩展欧几里得算法<ul>
+<li>裴蜀定理</li>
+</ul>
+</li>
+<li>中国剩余定理</li>
+<li>高斯消元</li>
+<li>求组合数<ul>
+<li>卢卡斯定理</li>
+</ul>
+</li>
+<li>容斥原理</li>
+<li>博弈论<ul>
+<li>nim尼姆游戏</li>
+</ul>
+</li>
+</ul>
 
             </div>
             <hr>
