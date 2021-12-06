@@ -1,0 +1,709 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/zhaoxi.jpg">
+  <link rel="icon" href="/img/zhaoxi.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="本讲义讲述质数的判断，分解质因数，筛质数的三种方法，求约数，约数和定理，约数个数定理，欧几里得算法，欧拉函数的求法，筛法筛出欧拉函数，快速幂及其求逆元的方式，那么必须要有欧拉定理和费马小定理">
+  <meta name="author" content="金铉杰">
+  <meta name="keywords" content="">
+  
+  <title>质数，约数，欧拉函数，快速幂及其定理 - Jinxuanjie&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":65,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Jinxuanjie's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/Hello%20World2.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="质数，约数，欧拉函数，快速幂及其定理">
+              
+            </span>
+	
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      金铉杰
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-06 09:20" pubdate>
+        2021年12月6日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      46
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">质数，约数，欧拉函数，快速幂及其定理</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：几秒前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>本讲义讲述质数的判断，分解质因数，筛质数的三种方法，求约数，约数和定理，约数个数定理，欧几里得算法，欧拉函数的求法，筛法筛出欧拉函数，快速幂及其求逆元的方式，那么必须要有欧拉定理和费马小定理</p>
+<span id="more"></span>
+
+<h1 id="数学（1）"><a href="#数学（1）" class="headerlink" title="数学（1）"></a>数学（1）</h1><h2 id="质数"><a href="#质数" class="headerlink" title="质数"></a>质数</h2><h4 id="试除法判定质数"><a href="#试除法判定质数" class="headerlink" title="试除法判定质数"></a>试除法判定质数</h4><p>之前有讲过，利用o（根号n）的方法来判定是不是质数</p>
+<blockquote>
+<p>给定 n 个正整数 ai，判定每个数是否是质数。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n。</p>
+<p>接下来 n 行，每行包含一个正整数 ai。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>共 n 行，其中第 i 行输出第 i 个正整数 ai 是否为质数，是则输出 <code>Yes</code>，否则输出 <code>No</code>。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤100<br>1≤ai≤2^31−1</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">2<br>2<br>6<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight gams"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs gams"><span class="hljs-keyword">Yes</span><br><span class="hljs-keyword">No</span><br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">is_prime</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (x == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= x / i; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">if</span> (x % i == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> T;<br>    cin &gt;&gt; T;<br>    <br>    <span class="hljs-keyword">while</span> (T -- )<br>    &#123;<br>        <span class="hljs-keyword">int</span> n;<br>        cin &gt;&gt; n;<br>        <br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">is_prime</span>(n)) <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Yes&quot;</span>);<br>        <span class="hljs-keyword">else</span> <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;No&quot;</span>);<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+
+<h3 id="试除法分解质因数o（根号n）"><a href="#试除法分解质因数o（根号n）" class="headerlink" title="试除法分解质因数o（根号n）"></a>试除法分解质因数o（根号n）</h3><blockquote>
+<p>给定 n 个正整数 ai，将每个数分解质因数，并按照质因数从小到大的顺序输出每个质因数的底数和指数。</p>
+<h4 id="输入格式-1"><a href="#输入格式-1" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n。</p>
+<p>接下来 n 行，每行包含一个正整数 ai。</p>
+<h4 id="输出格式-1"><a href="#输出格式-1" class="headerlink" title="输出格式"></a>输出格式</h4><p>对于每个正整数 ai，按照从小到大的顺序输出其分解质因数后，每个质因数的底数和指数，每个底数和指数占一行。</p>
+<p>每个正整数的质因数全部输出完毕后，输出一个空行。</p>
+<h4 id="数据范围-1"><a href="#数据范围-1" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤100<br>2≤ai≤2×10^9</p>
+<h4 id="输入样例：-1"><a href="#输入样例：-1" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">2<br>6<br>8<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="输出样例：-1"><a href="#输出样例：-1" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight basic"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs basic"><span class="hljs-symbol">2 </span><span class="hljs-number">1</span><br><span class="hljs-symbol">3 </span><span class="hljs-number">1</span><br><br><span class="hljs-symbol">2 </span><span class="hljs-number">3</span><br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">50010</span>;<br><br><span class="hljs-keyword">bool</span> st[N];<br><span class="hljs-keyword">int</span> primes[N], cnt, minp[N];<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= x; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">if</span> (!st[i]) <br>        &#123;<br>            primes[cnt ++ ] = i;<br>            minp[i] = i;<br>            <br>        &#125;<br>        <br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; i * primes[j] &lt;= x; j ++ )<br>        &#123;<br>            st[i * primes[j]] = <span class="hljs-literal">true</span>;<br>            minp[i * primes[j]] = primes[j];<br>            <span class="hljs-keyword">if</span> (i % primes[j] == <span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">init</span>(N - <span class="hljs-number">1</span>);<br>    <br>    <span class="hljs-keyword">int</span> T;<br>    <br>    cin &gt;&gt; T;<br>    <br>    <span class="hljs-keyword">while</span> (T -- )<br>    &#123;<br>        <span class="hljs-keyword">int</span> n;<br>        cin &gt;&gt; n;<br>        <br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; cnt; i ++ )<br>        &#123;<br>            <span class="hljs-keyword">int</span> p = primes[i];<br>            <span class="hljs-keyword">int</span> s = <span class="hljs-number">0</span>;<br>            <br>            <span class="hljs-keyword">if</span> (n % p == <span class="hljs-number">0</span>)<br>            &#123;<br>                <span class="hljs-keyword">while</span> (n % p == <span class="hljs-number">0</span>)<br>                &#123;<br>                    n /= p;<br>                    s ++ ;<br>                &#125;<br>                cout &lt;&lt; p &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> &lt;&lt; s &lt;&lt; endl;<br>            &#125;<br>        &#125;<br>        <br>        <span class="hljs-keyword">if</span> (n &gt; <span class="hljs-number">1</span>) cout &lt;&lt; n &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> &lt;&lt; <span class="hljs-number">1</span> &lt;&lt; endl;<br>        <br>        <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;&quot;</span>);<br>    &#125;<br>    <br>    cout &lt;&lt; cnt &lt;&lt; endl;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+
+<h2 id="筛质数"><a href="#筛质数" class="headerlink" title="筛质数"></a>筛质数</h2><p><strong>把小于某个数的所有质数都筛出来。</strong></p>
+<blockquote>
+<p>给定一个正整数 n，请你求出 1∼n 中质数的个数。</p>
+<h4 id="输入格式-2"><a href="#输入格式-2" class="headerlink" title="输入格式"></a>输入格式</h4><p>共一行，包含整数 n。</p>
+<h4 id="输出格式-2"><a href="#输出格式-2" class="headerlink" title="输出格式"></a>输出格式</h4><p>共一行，包含一个整数，表示 1∼n 中质数的个数。</p>
+<h4 id="数据范围-2"><a href="#数据范围-2" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤10^6</p>
+<h4 id="输入样例：-2"><a href="#输入样例：-2" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">8<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="输出样例：-2"><a href="#输出样例：-2" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">4<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<p>这个问题呢有三种方法的演变过程</p>
+<p>详细的请仔细看我这篇博客<a target="_blank" rel="noopener" href="https://jxj777.top/posts/2574143239.html">点我跳转</a></p>
+<p>这里直接给出c++代码</p>
+<h4 id="朴素筛"><a href="#朴素筛" class="headerlink" title="朴素筛"></a>朴素筛</h4><figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N= <span class="hljs-number">1000010</span>;<br><br><span class="hljs-keyword">int</span> primes[N], cnt;<br><span class="hljs-keyword">bool</span> st[N];<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">get_primes</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">if</span> (st[i]) <span class="hljs-keyword">continue</span>;<br>        primes[cnt ++ ] = i;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i + i; j &lt;= n; j += i)<br>            st[j] = <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> n;<br>    cin &gt;&gt; n;<br><br>    <span class="hljs-built_in">get_primes</span>(n);<br><br>    cout &lt;&lt; cnt &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="埃氏筛法"><a href="#埃氏筛法" class="headerlink" title="埃氏筛法"></a>埃氏筛法</h4><figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">get_primes1</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">2</span>;i&lt;=n;i++)&#123;<br>        <span class="hljs-keyword">if</span>(!st[i])&#123;<br>            primes[cnt++]=i;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=i;j&lt;=n;j+=i) st[j]=<span class="hljs-literal">true</span>;<span class="hljs-comment">//可以用质数就把所有的合数都筛掉；</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="欧拉筛（线性筛法）"><a href="#欧拉筛（线性筛法）" class="headerlink" title="欧拉筛（线性筛法）"></a>欧拉筛（线性筛法）</h4><figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N= <span class="hljs-number">1000010</span>;<br><br><span class="hljs-keyword">int</span> primes[N], cnt;<br><span class="hljs-keyword">bool</span> st[N];<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">get_primes</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">if</span> (!st[i]) primes[cnt ++ ] = i;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; primes[j] &lt;= n / i; j ++ )<br>        &#123;<br>            st[primes[j] * i] = <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">if</span> (i % primes[j] == <span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> n;<br>    cin &gt;&gt; n;<br><br>    <span class="hljs-built_in">get_primes</span>(n);<br><br>    cout &lt;&lt; cnt &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+
+<h2 id="约数"><a href="#约数" class="headerlink" title="约数"></a>约数</h2><h3 id="试除法求约数"><a href="#试除法求约数" class="headerlink" title="试除法求约数"></a>试除法求约数</h3><figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function">vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">get_divisors</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>    vector&lt;<span class="hljs-keyword">int</span>&gt; res;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= x / i; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">if</span> (x % i == <span class="hljs-number">0</span>)<br>        &#123;<br>            res.<span class="hljs-built_in">push_back</span>(i);<br>            <span class="hljs-keyword">if</span> (x / i != i) res.<span class="hljs-built_in">push_back</span>(x / i);<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-built_in">sort</span>(res.<span class="hljs-built_in">begin</span>(), res.<span class="hljs-built_in">end</span>());<br>    <br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> T;<br>    cin &gt;&gt; T;<br>    <br>    <span class="hljs-keyword">while</span> (T -- )<br>    &#123;<br>        <span class="hljs-keyword">int</span> n;<br>        cin &gt;&gt; n;<br>        <br>        <span class="hljs-keyword">auto</span> a = <span class="hljs-built_in">get_divisors</span>(n);<br>        <br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> t : a)<br>        &#123;<br>            cout &lt;&lt; t &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span>;<br>        &#125;<br>        <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;&quot;</span>);<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+
+<h3 id="约数和定理与约数个数定理"><a href="#约数和定理与约数个数定理" class="headerlink" title="约数和定理与约数个数定理"></a>约数和定理与约数个数定理</h3><p>这个为小学数奥定理，会在课上详细讲一讲，都是基于乘法原理</p>
+<h4 id="约数和定理"><a href="#约数和定理" class="headerlink" title="约数和定理"></a>约数和定理</h4><blockquote>
+<p>给定 n 个正整数 ai，请你输出这些数的乘积的约数之和，答案对 10^9+7 取模。</p>
+<h4 id="输入格式-3"><a href="#输入格式-3" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n。</p>
+<p>接下来 n 行，每行包含一个整数 ai。</p>
+<h4 id="输出格式-3"><a href="#输出格式-3" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示所给正整数的乘积的约数之和，答案需对 10^9+7取模。</p>
+<h4 id="数据范围-3"><a href="#数据范围-3" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤100<br>1≤ai≤2×10^9</p>
+<h4 id="输入样例：-3"><a href="#输入样例：-3" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">3<br>2<br>6<br>8<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="输出样例：-3"><a href="#输出样例：-3" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">252<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unordered_map&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> LL;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">110</span>, mod = <span class="hljs-number">1e9</span> + <span class="hljs-number">7</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> n;<br>    cin &gt;&gt; n;<br><br>    unordered_map&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; primes;<br><br>    <span class="hljs-keyword">while</span> (n -- )<br>    &#123;<br>        <span class="hljs-keyword">int</span> x;<br>        cin &gt;&gt; x;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= x / i; i ++ )<br>            <span class="hljs-keyword">while</span> (x % i == <span class="hljs-number">0</span>)<br>            &#123;<br>                x /= i;<br>                primes[i] ++ ;<br>            &#125;<br><br>        <span class="hljs-keyword">if</span> (x &gt; <span class="hljs-number">1</span>) primes[x] ++ ;<br>    &#125;<br><br>    LL res = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> p : primes)<br>    &#123;<br>        LL a = p.first, b = p.second;<br>        LL t = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span> (b -- ) t = (t * a + <span class="hljs-number">1</span>) % mod;<br>        res = res * t % mod;<br>    &#125;<br><br>    cout &lt;&lt; res &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="约数个数定理"><a href="#约数个数定理" class="headerlink" title="约数个数定理"></a>约数个数定理</h4><blockquote>
+<p>给定 n 个正整数 ai，请你输出这些数的乘积的约数个数，答案对 10^9+7 取模。</p>
+<h4 id="输入格式-4"><a href="#输入格式-4" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n。</p>
+<p>接下来 n 行，每行包含一个整数 ai。</p>
+<h4 id="输出格式-4"><a href="#输出格式-4" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示所给正整数的乘积的约数个数，答案需对 10^9+7 取模。</p>
+<h4 id="数据范围-4"><a href="#数据范围-4" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤100<br>1≤ai≤2×10^9</p>
+<h4 id="输入样例：-4"><a href="#输入样例：-4" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">3<br>2<br>6<br>8<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="输出样例：-4"><a href="#输出样例：-4" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">12<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unordered_map&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> LL;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">110</span>, mod = <span class="hljs-number">1e9</span> + <span class="hljs-number">7</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> n;<br>    cin &gt;&gt; n;<br><br>    unordered_map&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; primes;<br><br>    <span class="hljs-keyword">while</span> (n -- )<br>    &#123;<br>        <span class="hljs-keyword">int</span> x;<br>        cin &gt;&gt; x;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= x / i; i ++ )<br>            <span class="hljs-keyword">while</span> (x % i == <span class="hljs-number">0</span>)<br>            &#123;<br>                x /= i;<br>                primes[i] ++ ;<br>            &#125;<br><br>        <span class="hljs-keyword">if</span> (x &gt; <span class="hljs-number">1</span>) primes[x] ++ ;<br>    &#125;<br><br>    LL res = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> p : primes) res = res * (p.second + <span class="hljs-number">1</span>) % mod;<br><br>    cout &lt;&lt; res &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<h3 id="欧几里得算法"><a href="#欧几里得算法" class="headerlink" title="欧几里得算法"></a>欧几里得算法</h3><blockquote>
+<p>给定 n 对正整数 ai,bi，请你求出每对数的最大公约数。</p>
+<h4 id="输入格式-5"><a href="#输入格式-5" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n。</p>
+<p>接下来 n 行，每行包含一个整数对 ai,bi。</p>
+<h4 id="输出格式-5"><a href="#输出格式-5" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出共 n 行，每行输出一个整数对的最大公约数。</p>
+<h4 id="数据范围-5"><a href="#数据范围-5" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤10^5<br>1≤ai,bi≤2×10^9</p>
+<h4 id="输入样例：-5"><a href="#输入样例：-5" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight basic"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs basic"><span class="hljs-number">2</span><br><span class="hljs-symbol">3 </span><span class="hljs-number">6</span><br><span class="hljs-symbol">4 </span><span class="hljs-number">6</span><br></code></pre></div></td></tr></table></figure>
+
+<h4 id="输出样例：-5"><a href="#输出样例：-5" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">3<br>2<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">gcd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> !b ? a : <span class="hljs-built_in">gcd</span>(b, a % b);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> T;<br>    cin &gt;&gt; T;<br>    <br>    <span class="hljs-keyword">while</span> (T -- )<br>    &#123;<br>        <span class="hljs-keyword">int</span> a, b;<br>        cin &gt;&gt; a &gt;&gt; b;<br>        <br>        cout &lt;&lt; <span class="hljs-built_in">gcd</span>(a, b) &lt;&lt; endl;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+
+<h2 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h2><p>会有俩种求得模式，一种是直接求单个数得欧拉函数，一种是直接筛出欧拉函数</p>
+<h3 id="求解欧拉函数："><a href="#求解欧拉函数：" class="headerlink" title="求解欧拉函数："></a>求解欧拉函数：</h3><blockquote>
+<p>给定 n 个正整数 ai，请你求出每个数的欧拉函数。</p>
+<h4 id="输入格式-6"><a href="#输入格式-6" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n。</p>
+<p>接下来 n 行，每行包含一个正整数 ai。</p>
+<h4 id="输出格式-6"><a href="#输出格式-6" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出共 n 行，每行输出一个正整数 ai 的欧拉函数。</p>
+<h4 id="数据范围-6"><a href="#数据范围-6" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤100<br>1≤ai≤2×10^9</p>
+<h4 id="输入样例：-6"><a href="#输入样例：-6" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">3<br>3<br>6<br>8<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="输出样例：-6"><a href="#输出样例：-6" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">2<br>2<br>4<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">phi</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> res = x;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= x / i; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">if</span> (x % i == <span class="hljs-number">0</span>)<br>        &#123;<br>            res = res / i * (i - <span class="hljs-number">1</span>);<br>            <span class="hljs-keyword">while</span> (x % i == <span class="hljs-number">0</span>) x /= i;<br>        &#125;    <br>    &#125;<br>    <br>    <span class="hljs-keyword">if</span> (x &gt; <span class="hljs-number">1</span>) res = res / x * (x - <span class="hljs-number">1</span>);<br>    <br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> T;<br>    cin &gt;&gt; T;<br>    <br>    <span class="hljs-keyword">while</span> (T -- )<br>    &#123;<br>        <span class="hljs-keyword">int</span> v;<br>        cin &gt;&gt; v;<br>        <br>        cout &lt;&lt; <span class="hljs-built_in">phi</span>(v) &lt;&lt; endl;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+
+<h3 id="线性筛法筛出欧拉函数"><a href="#线性筛法筛出欧拉函数" class="headerlink" title="线性筛法筛出欧拉函数"></a>线性筛法筛出欧拉函数</h3><blockquote>
+<p>给定一个正整数 n，求 1∼n 中每个数的欧拉函数之和。</p>
+<h4 id="输入格式-7"><a href="#输入格式-7" class="headerlink" title="输入格式"></a>输入格式</h4><p>共一行，包含一个整数 n。</p>
+<h4 id="输出格式-7"><a href="#输出格式-7" class="headerlink" title="输出格式"></a>输出格式</h4><p>共一行，包含一个整数，表示 1∼n 中每个数的欧拉函数之和。</p>
+<h4 id="数据范围-7"><a href="#数据范围-7" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤10^6</p>
+<h4 id="输入样例：-7"><a href="#输入样例：-7" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">6<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="输出样例：-7"><a href="#输出样例：-7" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">12<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> LL;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1e6</span> + <span class="hljs-number">10</span>;<br><br><span class="hljs-keyword">int</span> primes[N], phi[N], cnt;<br><span class="hljs-keyword">bool</span> st[N];<br>LL res;<br><br><span class="hljs-keyword">int</span> n;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">get_phi</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>    phi[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">if</span> (!st[i])<br>        &#123;<br>            primes[cnt ++ ] = i;<br>            phi[i] = i - <span class="hljs-number">1</span>;<br>        &#125;<br>        <br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; i * primes[j] &lt;= x; j ++ )<br>        &#123;<br>            <span class="hljs-keyword">int</span> t = i * primes[j];<br>            st[t] = <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">if</span> (i % primes[j] == <span class="hljs-number">0</span>)<br>            &#123;<br>                phi[t] = phi[i] * primes[j];<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <br>            phi[t] = phi[i] * (primes[j] - <span class="hljs-number">1</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n;<br>    <br>    <span class="hljs-built_in">get_phi</span>(n);<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>    &#123;<br>        res += phi[i];<br>    &#125;<br>    <br>    cout &lt;&lt; res &lt;&lt; endl;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+
+<h2 id="快速幂和龟速乘"><a href="#快速幂和龟速乘" class="headerlink" title="快速幂和龟速乘"></a>快速幂和龟速乘</h2><p>在通识课上讲过哈~</p>
+<h3 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h3><blockquote>
+<p>给定 n 组 ai,bi,pi，对于每组数据，求出 ai ^ bi mod pi 的值。</p>
+<h4 id="输入格式-8"><a href="#输入格式-8" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n。</p>
+<p>接下来 n 行，每行包含三个整数 ai,bi,pi。</p>
+<h4 id="输出格式-8"><a href="#输出格式-8" class="headerlink" title="输出格式"></a>输出格式</h4><p>对于每组数据，输出一个结果，表示 ai ^ bi mod pi 的值。</p>
+<p>每个结果占一行。</p>
+<h4 id="数据范围-8"><a href="#数据范围-8" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤100000<br>1≤ai,bi,pi≤2×10^9</p>
+<h4 id="输入样例：-8"><a href="#输入样例：-8" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight basic"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs basic"><span class="hljs-number">2</span><br><span class="hljs-symbol">3 </span><span class="hljs-number">2</span> <span class="hljs-number">5</span><br><span class="hljs-symbol">4 </span><span class="hljs-number">3</span> <span class="hljs-number">9</span><br></code></pre></div></td></tr></table></figure>
+
+<h4 id="输出样例：-8"><a href="#输出样例：-8" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">4<br>1<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> LL;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">qki</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b, <span class="hljs-keyword">int</span> p)</span></span><br><span class="hljs-function"></span>&#123;<br>    LL res = <span class="hljs-number">1</span> % p;<br>    <br>    <span class="hljs-keyword">while</span> (b &gt; <span class="hljs-number">0</span>)<br>    &#123;<br>        <span class="hljs-keyword">if</span>(b &amp; <span class="hljs-number">1</span>) res = res * a % p;<br>        a = (LL) a * a % p;<br>        b &gt;&gt;= <span class="hljs-number">1</span>;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> n;<br>    cin &gt;&gt; n;<br>    <span class="hljs-keyword">while</span> (n -- )<br>    &#123;<br>        <span class="hljs-keyword">int</span> a, b, c;<br>        cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;<br>        <br>        cout &lt;&lt; <span class="hljs-built_in">qki</span>(a, b, c) &lt;&lt; endl;<br>    &#125;<br>    <br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+
+<h3 id="龟速乘"><a href="#龟速乘" class="headerlink" title="龟速乘"></a>龟速乘</h3><blockquote>
+<p>求 a 乘 b 对 p 取模的值。</p>
+<h4 id="输入格式-9"><a href="#输入格式-9" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行输入整数a，第二行输入整数b，第三行输入整数p。</p>
+<h4 id="输出格式-9"><a href="#输出格式-9" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示<code>a*b mod p</code>的值。</p>
+<h4 id="数据范围-9"><a href="#数据范围-9" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤a,b,p≤10^18</p>
+<h4 id="输入样例：-9"><a href="#输入样例：-9" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">3<br>4<br>5<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="输出样例：-9"><a href="#输出样例：-9" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">2<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> LL;<br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    LL a, b, p;<br>    cin &gt;&gt; a &gt;&gt; b &gt;&gt; p;<br>    <br>    LL res = <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">while</span>(b &gt; <span class="hljs-number">0</span>)<br>    &#123;<br>        <span class="hljs-keyword">if</span>(b &amp; <span class="hljs-number">1</span>) res = (res + a) % p;<br>        a = (a + a) % p;<br>        b &gt;&gt;= <span class="hljs-number">1</span>;<br>    &#125;<br>    <br>    cout &lt;&lt; res &lt;&lt; endl;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+
+<h2 id="逆元"><a href="#逆元" class="headerlink" title="逆元"></a>逆元</h2><blockquote>
+<p>若整数 b，m 互质，并且对于任意的整数 a，如果满足 b|a，则存在一个整数 x，使得 a/b≡a×x (modm)，则称 x 为 b 的模 m 乘法逆元，记为 b−1(mod m)。<br>b 存在乘法逆元的充要条件是 b 与模数 m 互质。当模数 m 为质数时b ^ (m−2) 即为 b 的乘法逆元。</p>
+</blockquote>
+<p><strong>有人可能会问了，为什么b ^ (m - 2)是b得乘法逆元呢？这个事情得先从欧拉定理和费马小定理开始说起</strong></p>
+<p><img src="http://jin-xuanjie.gitee.io/note-pad/image-20210612143620193.png" srcset="/img/loading.gif" lazyload alt="image-20210612143620193"></p>
+<p>如果n是质数，那么这个公式会变成了<img src="http://jin-xuanjie.gitee.io/note-pad/image-20210612143740996.png" srcset="/img/loading.gif" lazyload alt="image-20210612143740996"></p>
+<blockquote>
+<p>给定 n 组 ai,pi，其中 pi 是质数，求 ai 模 pi 的乘法逆元，若逆元不存在则输出 <code>impossible</code>。</p>
+<p><strong>注意</strong>：请返回在 0∼p−1 之间的逆元。</p>
+<h4 id="输入格式-10"><a href="#输入格式-10" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n。</p>
+<p>接下来 n 行，每行包含一个数组 ai,pi，数据保证 pi 是质数。</p>
+<h4 id="输出格式-10"><a href="#输出格式-10" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出共 n 行，每组数据输出一个结果，每个结果占一行。</p>
+<p>若 ai 模 pi 的乘法逆元存在，则输出一个整数，表示逆元，否则输出 <code>impossible</code>。</p>
+<h4 id="数据范围-10"><a href="#数据范围-10" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤10^5<br>1≤ai,pi≤2∗10^9</p>
+<h4 id="输入样例：-10"><a href="#输入样例：-10" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight basic"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs basic"><span class="hljs-number">3</span><br><span class="hljs-symbol">4 </span><span class="hljs-number">3</span><br><span class="hljs-symbol">8 </span><span class="hljs-number">5</span><br><span class="hljs-symbol">6 </span><span class="hljs-number">3</span><br></code></pre></div></td></tr></table></figure>
+
+<h4 id="输出样例：-10"><a href="#输出样例：-10" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-number">1</span><br><span class="hljs-number">2</span><br>impossible<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> LL;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">qmi</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b, <span class="hljs-keyword">int</span> p)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> res = <span class="hljs-number">1</span> % p;<br>    <br>    <span class="hljs-keyword">while</span> (b)<br>    &#123;<br>        <span class="hljs-keyword">if</span> (b &amp; <span class="hljs-number">1</span>) res = (LL)res * a % p;<br>        a = (LL)a * a % p;<br>        b &gt;&gt;= <span class="hljs-number">1</span>;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> T;<br>    cin &gt;&gt; T;<br>    <br>    <span class="hljs-keyword">while</span> (T -- )<br>    &#123;<br>        <span class="hljs-keyword">int</span> a, p;<br>        cin &gt;&gt; a &gt;&gt; p;<br>        <br>        <span class="hljs-keyword">int</span> res = <span class="hljs-built_in">qmi</span>(a, p - <span class="hljs-number">2</span>, p);<br>        <br>        <span class="hljs-keyword">if</span>(p == <span class="hljs-number">2</span> &amp;&amp; a % p == <span class="hljs-number">0</span>)<br>        &#123;<br>            <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;impossible&quot;</span>);<br>            <span class="hljs-keyword">continue</span>;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (p == <span class="hljs-number">2</span>)<br>        &#123;<br>            cout &lt;&lt; <span class="hljs-number">1</span> &lt;&lt; endl;<br>            <br>            <span class="hljs-keyword">continue</span>;<br>        &#125;<br>        <br>        <span class="hljs-keyword">if</span> (res) cout &lt;&lt; res &lt;&lt; endl;<br>        <span class="hljs-keyword">else</span> <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;impossible&quot;</span>);<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+
+<p>今天的内容量还是比较多的，希望大家可以多加练习和推导，做到活用</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%90%B4%E7%90%86%E5%B7%A5%E4%BD%9C%E5%AE%A4%E7%AE%97%E6%B3%95%E7%BB%84%E6%95%99%E5%AD%A6/">琴理工作室算法组教学</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%90%B4%E7%90%86%E5%B7%A5%E4%BD%9C%E5%AE%A4%E7%AE%97%E6%B3%95%E7%BB%84%E6%95%99%E5%AD%A6/%E6%95%99%E6%A1%88/">教案</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%90%B4%E7%90%86%E5%B7%A5%E4%BD%9C%E5%AE%A4%E7%AE%97%E6%B3%95%E7%BB%84%E6%95%99%E5%AD%A6/%E6%95%99%E6%A1%88/%E6%95%B0%E5%AD%A6/">数学</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%99%E6%A1%88/">教案</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/326720021.html">
+                        <span class="hidden-mobile">二分图算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"DMqxY1YgJYYK7J4cEVToKdLI-gzGzoHsz","appKey":"qYmhywplM4iNj6r2M8jsrulM","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        辽ICP备2021007189号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
