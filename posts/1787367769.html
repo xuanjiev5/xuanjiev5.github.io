@@ -242,7 +242,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：几秒前
+                  本文最后更新于：14 天前
                 
               </p>
             
@@ -256,11 +256,11 @@
 <p>由于 YYH Land 是一片神奇的国度，YYH Land 的树也有一些神奇的能力，具体来说它满足如下操作：</p>
 <ul>
 <li><code>1 e</code><br>编号为 <em>e</em> 的边突然消失，使得它所在的那棵树变成了两棵树。</li>
-<li><code>2 u val</code><br>编号为 u* 的节点的灵力值变成了 v<strong>a</strong>l*。</li>
+<li><code>2 u val</code><br>编号为 u* 的节点的灵力值变成了 v<strong>a</strong>l。</li>
 <li><code>3 u</code><br>清蒸鱼进行了一次查询，查询 u* 所在的那棵树的灵力值之和。</li>
 </ul>
 <p>现在你需要帮助清蒸鱼，来模拟上述事件，以了解森林的变迁。</p>
-<h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行为 n, m，如上所述。<br>第二行有 n 个数，为 n 个结点的初始权值，在 10^3 以内。<br>下面 n-1 行，每行一组 u*,<em>v</em>，表示一条边。（保证初始为一棵树）<br>下面 m 行有 m 个操作：<br>先读入一个opt，表示操作类型。<br>opt=1 时，读入 e，表示删掉读入的第 e 条边。（保证第 e 条边存在）<br>opt=2 时，读入 u,val表示把结点 u* 的权值改成 val（val≤1000）。<br>opt=3 时，读入 <em>u</em>，表示查询 u 所在的那棵树的结点权值和。</p>
+<h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行为 n, m，如上所述。<br>第二行有 n 个数，为 n 个结点的初始权值，在 10^3 以内。<br>下面 n-1 行，每行一组 u*,*v，表示一条边。（保证初始为一棵树）<br>下面 m 行有 m 个操作：<br>先读入一个opt，表示操作类型。<br>opt=1 时，读入 e，表示删掉读入的第 e 条边。（保证第 e 条边存在）<br>opt=2 时，读入 u,val表示把结点 u 的权值改成 val（val≤1000）。<br>opt=3 时，读入 <em>u</em>，表示查询 u 所在的那棵树的结点权值和。</p>
 <h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>对于每个查询操作，输出一行一个数表示答案。</p>
 <h2 id="输入输出样例"><a href="#输入输出样例" class="headerlink" title="输入输出样例"></a>输入输出样例</h2><p><strong>输入 #1</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta">&gt;</span><span class="bash">2 3</span><br>1 1<br>1 2<br>2 2 4<br>1 1<br>3 2<br></code></pre></div></td></tr></table></figure>
@@ -314,6 +314,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/2988935733.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">个人总结_2021</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
