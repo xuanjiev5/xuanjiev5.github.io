@@ -200,7 +200,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      93
+      94
        分钟
     </span>
   
@@ -250,7 +250,8 @@
               <p>本讲义讲述线性dp的数字三角形，最长上升（下降）子序列， 最长公共子序列</p>
 <span id="more"></span>
 
-<h1 id="线性dp"><a href="#线性dp" class="headerlink" title="线性dp"></a>线性dp</h1><h3 id="数字三角形模型"><a href="#数字三角形模型" class="headerlink" title="数字三角形模型"></a>数字三角形模型</h3><p><strong>这个模型比较简单，直接看题就行了</strong></p>
+<h1 id="线性dp"><a href="#线性dp" class="headerlink" title="线性dp"></a>线性dp</h1><p><strong>这类dp应该是最简单的一类dp了，也没什么背景可言，就直接讲一下就可以了</strong></p>
+<h3 id="数字三角形模型"><a href="#数字三角形模型" class="headerlink" title="数字三角形模型"></a>数字三角形模型</h3><p><strong>这个模型比较简单，直接看题就行了</strong></p>
 <blockquote>
 <p>给定一个如下图所示的数字三角形，从顶部出发，在每一结点可以选择移动至其左下方的结点或移动至其右下方的结点，一直走到底层，要求找出一条路径，使路径上的数字的和最大。</p>
 <figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache">        <span class="hljs-attribute">7</span><br>      <span class="hljs-attribute">3</span>   <span class="hljs-number">8</span><br>    <span class="hljs-attribute">8</span>   <span class="hljs-number">1</span>   <span class="hljs-number">0</span><br>  <span class="hljs-attribute">2</span>   <span class="hljs-number">7</span>   <span class="hljs-number">4</span>   <span class="hljs-number">4</span><br><span class="hljs-attribute">4</span>   <span class="hljs-number">5</span>   <span class="hljs-number">2</span>   <span class="hljs-number">6</span>   <span class="hljs-number">5</span><br></code></pre></div></td></tr></table></figure>
@@ -344,8 +345,10 @@
 
 
 <hr>
+# 练习题：
 
-<h1 id="练习题："><a href="#练习题：" class="headerlink" title="练习题："></a>练习题：</h1><h3 id="T1：-信息学奥赛一本通"><a href="#T1：-信息学奥赛一本通" class="headerlink" title="T1：(信息学奥赛一本通)"></a>T1：(信息学奥赛一本通)</h3><blockquote>
+<p><strong>所有都选自算法类经典书籍和NOIP比塞题</strong></p>
+<h3 id="T1：-信息学奥赛一本通"><a href="#T1：-信息学奥赛一本通" class="headerlink" title="T1：(信息学奥赛一本通)"></a>T1：(信息学奥赛一本通)</h3><blockquote>
 <p>怪盗基德是一个充满传奇色彩的怪盗，专门以珠宝为目标的超级盗窃犯。</p>
 <p>而他最为突出的地方，就是他每次都能逃脱中村警部的重重围堵，而这也很大程度上是多亏了他随身携带的便于操作的滑翔翼。</p>
 <p>有一天，怪盗基德像往常一样偷走了一颗珍贵的钻石，不料却被柯南小朋友识破了伪装，而他的滑翔翼的动力装置也被柯南踢出的足球破坏了。</p>
@@ -542,6 +545,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">55</span>;<br><br><span class="hljs-keyword">int</span> f[N &lt;&lt; <span class="hljs-number">1</span>][N][N];<br><span class="hljs-keyword">int</span> w[N][N];<br><br><span class="hljs-keyword">int</span> n, m;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j ++ )<br>            cin &gt;&gt; w[i][j];<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">2</span>; k &lt;= n + m; k ++ )<br>    &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i1 = <span class="hljs-number">1</span>; i1 &lt;= n; i1 ++ )<br>        &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i2 = <span class="hljs-number">1</span>; i2 &lt;= n; i2 ++ )<br>            &#123;<br>                <span class="hljs-keyword">int</span> j1 = k - i1, j2 = k - i2;<br>                <br>                <span class="hljs-keyword">if</span> (j1 &lt; <span class="hljs-number">1</span> || j1 &gt; m || j2 &lt; <span class="hljs-number">1</span> || j2 &gt; m) <span class="hljs-keyword">continue</span>;<br>                <br>                <span class="hljs-keyword">int</span> t = w[i1][j1];<br>                <span class="hljs-keyword">if</span> (i1 != i2) t += w[i2][j2];<br>                <br>                <span class="hljs-keyword">int</span> &amp;x = f[k][i1][i2];<br>                <br>                x = <span class="hljs-built_in">max</span>(x, t + f[k - <span class="hljs-number">1</span>][i1][i2]);<br>                x = <span class="hljs-built_in">max</span>(x, t + f[k - <span class="hljs-number">1</span>][i1 - <span class="hljs-number">1</span>][i2]);<br>                x = <span class="hljs-built_in">max</span>(x, t + f[k - <span class="hljs-number">1</span>][i1][i2 - <span class="hljs-number">1</span>]);<br>                x = <span class="hljs-built_in">max</span>(x, t + f[k - <span class="hljs-number">1</span>][i1 - <span class="hljs-number">1</span>][i2 - <span class="hljs-number">1</span>]);<br>            &#125;<br>        &#125;<br>    &#125;<br>    <br>    cout &lt;&lt; f[n + m][n][n] &lt;&lt; endl;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <br>&#125;<br></code></pre></div></td></tr></table></figure>
 
 <hr>
+
 
             </div>
             <hr>
