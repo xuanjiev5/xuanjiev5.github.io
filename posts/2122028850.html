@@ -251,7 +251,7 @@
 <span id="more"></span>
 
 <h1 id="线性dp"><a href="#线性dp" class="headerlink" title="线性dp"></a>线性dp</h1><p><strong>这类dp应该是最简单的一类dp了，也没什么背景可言，就直接讲一下就可以了</strong></p>
-<h3 id="数字三角形模型"><a href="#数字三角形模型" class="headerlink" title="数字三角形模型"></a>数字三角形模型</h3><p><strong>这个模型比较简单，直接看题就行了</strong></p>
+<h2 id="数字三角形模型"><a href="#数字三角形模型" class="headerlink" title="数字三角形模型"></a>数字三角形模型</h2><p><strong>这个模型比较简单，直接看题就行了</strong></p>
 <blockquote>
 <p>给定一个如下图所示的数字三角形，从顶部出发，在每一结点可以选择移动至其左下方的结点或移动至其右下方的结点，一直走到底层，要求找出一条路径，使路径上的数字的和最大。</p>
 <figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache">        <span class="hljs-attribute">7</span><br>      <span class="hljs-attribute">3</span>   <span class="hljs-number">8</span><br>    <span class="hljs-attribute">8</span>   <span class="hljs-number">1</span>   <span class="hljs-number">0</span><br>  <span class="hljs-attribute">2</span>   <span class="hljs-number">7</span>   <span class="hljs-number">4</span>   <span class="hljs-number">4</span><br><span class="hljs-attribute">4</span>   <span class="hljs-number">5</span>   <span class="hljs-number">2</span>   <span class="hljs-number">6</span>   <span class="hljs-number">5</span><br></code></pre></div></td></tr></table></figure>
@@ -267,9 +267,8 @@
 <figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">510</span>;<br><br><span class="hljs-keyword">int</span> f[N][N];<br><span class="hljs-keyword">int</span> a[N][N];<br><br><span class="hljs-keyword">int</span> n;<br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= i; j ++ )<br>            cin &gt;&gt; f[i][j];<br>            <br>            <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = n - <span class="hljs-number">1</span>; i &gt; <span class="hljs-number">0</span>; i -- )<br>    &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= i; j ++ )<br>            f[i][j] += <span class="hljs-built_in">max</span>(f[i + <span class="hljs-number">1</span>][j], f[i + <span class="hljs-number">1</span>][j + <span class="hljs-number">1</span>]);<br>    &#125;<br>    <br>    cout &lt;&lt; f[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] &lt;&lt; endl;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
 <hr>
-### 最长上升子序列模型
 
-<blockquote>
+<h2 id="最长上升子序列模型"><a href="#最长上升子序列模型" class="headerlink" title="最长上升子序列模型"></a>最长上升子序列模型</h2><blockquote>
 <p>给定一个长度为 N 的数列，求数值严格单调递增的子序列的长度最长是多少。</p>
 <h4 id="输入格式-1"><a href="#输入格式-1" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 N。</p>
 <p>第二行包含 N 个整数，表示完整序列。</p>
@@ -286,8 +285,9 @@
 <figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">100010</span>;<br><br><span class="hljs-keyword">int</span> n;<br><span class="hljs-keyword">int</span> a[N];<br><span class="hljs-keyword">int</span> q[N];<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ ) <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;a[i]);<br><br>    <span class="hljs-keyword">int</span> len = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>, r = len;<br>        <span class="hljs-keyword">while</span> (l &lt; r)<br>        &#123;<br>            <span class="hljs-keyword">int</span> mid = l + r + <span class="hljs-number">1</span> &gt;&gt; <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">if</span> (q[mid] &lt; a[i]) l = mid;<br>            <span class="hljs-keyword">else</span> r = mid - <span class="hljs-number">1</span>;<br>        &#125;<br>        len = <span class="hljs-built_in">max</span>(len, r + <span class="hljs-number">1</span>);<br>        q[r + <span class="hljs-number">1</span>] = a[i];<br>    &#125;<br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, len);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
 <hr>
+## 最长公共子序列
 
-<h3 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h3><blockquote>
+<blockquote>
 <p>给定两个长度分别为 N 和 M 的字符串 A 和 B，求既是 A 的子序列又是 BB 的子序列的字符串长度最长是多少。</p>
 <h4 id="输入格式-2"><a href="#输入格式-2" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含两个整数 N 和 M。</p>
 <p>第二行包含一个长度为 N 的字符串，表示字符串 A。</p>
@@ -303,7 +303,7 @@
 
 <hr>
 
-<h3 id="最长公共上升子序列"><a href="#最长公共上升子序列" class="headerlink" title="最长公共上升子序列"></a>最长公共上升子序列</h3><blockquote>
+<h2 id="最长公共上升子序列"><a href="#最长公共上升子序列" class="headerlink" title="最长公共上升子序列"></a>最长公共上升子序列</h2><blockquote>
 <p>熊大妈的奶牛在小沐沐的熏陶下开始研究信息题目。</p>
 <p>小沐沐先让奶牛研究了最长上升子序列，再让他们研究了最长公共子序列，现在又让他们研究最长公共上升子序列了。</p>
 <p>小沐沐说，对于两个数列 AA 和 BB，如果它们都包含一段位置不一定连续的数，且数值是严格递增的，那么称这一段数是两个数列的公共上升子序列，而所有的公共上升子序列中最长的就是最长公共上升子序列了。</p>
@@ -321,7 +321,7 @@
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">3010</span>;<br><br><span class="hljs-keyword">int</span> n;<br><span class="hljs-keyword">int</span> a[N], b[N];<br><span class="hljs-keyword">int</span> f[N][N];<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ ) cin &gt;&gt; a[i];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ ) cin &gt;&gt; b[i];<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">int</span> maxv = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j ++ )<br>        &#123;<br>            f[i][j] = f[i - <span class="hljs-number">1</span>][j];<br>            <span class="hljs-keyword">if</span> (a[i] == b[j]) f[i][j] = <span class="hljs-built_in">max</span>(f[i][j], maxv);<br><br>            <span class="hljs-keyword">if</span> (b[j] &lt; a[i])<br>                maxv = <span class="hljs-built_in">max</span>(maxv, f[i - <span class="hljs-number">1</span>][j] + <span class="hljs-number">1</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ ) res = <span class="hljs-built_in">max</span>(res, f[n][i]);<br>    cout &lt;&lt; res &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
-<h3 id="最短编辑距离"><a href="#最短编辑距离" class="headerlink" title="最短编辑距离"></a>最短编辑距离</h3><blockquote>
+<h2 id="最短编辑距离"><a href="#最短编辑距离" class="headerlink" title="最短编辑距离"></a>最短编辑距离</h2><blockquote>
 <p>给定两个字符串 A 和 B，现在要将 A 经过若干操作变为 B，可进行的操作有：</p>
 <ol>
 <li>删除–将字符串 A 中的某个字符删除。</li>
@@ -345,10 +345,9 @@
 
 
 <hr>
-# 练习题：
 
-<p><strong>所有都选自算法类经典书籍和NOIP比塞题</strong></p>
-<h3 id="T1：-信息学奥赛一本通"><a href="#T1：-信息学奥赛一本通" class="headerlink" title="T1：(信息学奥赛一本通)"></a>T1：(信息学奥赛一本通)</h3><blockquote>
+<h1 id="练习题："><a href="#练习题：" class="headerlink" title="练习题："></a>练习题：</h1><p><strong>所有都选自算法类经典书籍和NOIP比塞题</strong></p>
+<h2 id="T1：-信息学奥赛一本通"><a href="#T1：-信息学奥赛一本通" class="headerlink" title="T1：(信息学奥赛一本通)"></a>T1：(信息学奥赛一本通)</h2><blockquote>
 <p>怪盗基德是一个充满传奇色彩的怪盗，专门以珠宝为目标的超级盗窃犯。</p>
 <p>而他最为突出的地方，就是他每次都能逃脱中村警部的重重围堵，而这也很大程度上是多亏了他随身携带的便于操作的滑翔翼。</p>
 <p>有一天，怪盗基德像往常一样偷走了一颗珍贵的钻石，不料却被柯南小朋友识破了伪装，而他的滑翔翼的动力装置也被柯南踢出的足球破坏了。</p>
@@ -371,7 +370,7 @@
 
 <hr>
 
-<h3 id="T2-（信息学奥赛一本通-第六届北京大学程序设计大赛暨ACM-ICPC选拔赛）"><a href="#T2-（信息学奥赛一本通-第六届北京大学程序设计大赛暨ACM-ICPC选拔赛）" class="headerlink" title="T2:（信息学奥赛一本通 , 第六届北京大学程序设计大赛暨ACM/ICPC选拔赛）"></a>T2:（信息学奥赛一本通 , 第六届北京大学程序设计大赛暨ACM/ICPC选拔赛）</h3><blockquote>
+<h2 id="T2-（信息学奥赛一本通-第六届北京大学程序设计大赛暨ACM-ICPC选拔赛）"><a href="#T2-（信息学奥赛一本通-第六届北京大学程序设计大赛暨ACM-ICPC选拔赛）" class="headerlink" title="T2:（信息学奥赛一本通 , 第六届北京大学程序设计大赛暨ACM/ICPC选拔赛）"></a>T2:（信息学奥赛一本通 , 第六届北京大学程序设计大赛暨ACM/ICPC选拔赛）</h2><blockquote>
 <p>五一到了，ACM队组织大家去登山观光，队员们发现山上一共有N个景点，并且决定按照顺序来浏览这些景点，即每次所浏览景点的编号都要大于前一个浏览景点的编号。</p>
 <p>同时队员们还有另一个登山习惯，就是不连续浏览海拔相同的两个景点，并且一旦开始下山，就不再向上走了。</p>
 <p>队员们希望在满足上面条件的同时，尽可能多的浏览景点，你能帮他们找出最多可能浏览的景点数么？</p>
@@ -387,7 +386,7 @@
 
 <hr>
 
-<h3 id="T3-（NOIP2004提高组）"><a href="#T3-（NOIP2004提高组）" class="headerlink" title="T3:（NOIP2004提高组）"></a>T3:（NOIP2004提高组）</h3><blockquote>
+<h2 id="T3-（NOIP2004提高组）"><a href="#T3-（NOIP2004提高组）" class="headerlink" title="T3:（NOIP2004提高组）"></a>T3:（NOIP2004提高组）</h2><blockquote>
 <p>N 位同学站成一排，音乐老师要请其中的 (N−K) 位同学出列，使得剩下的 K 位同学排成合唱队形。     </p>
 <p>合唱队形是指这样的一种队形：设 KK 位同学从左到右依次编号为 1，2…，K他们的身高分别为 T1，T2，…，TK  则他们的身高满足 T1&lt;…<Ti>Ti+1&gt;…&gt;TK(1≤i≤K)   </p>
 <p>你的任务是，已知所有 N 位同学的身高，计算最少需要几位同学出列，可以使得剩下的同学排成合唱队形。</p>
@@ -403,7 +402,7 @@
 
 <hr>
 
-<h3 id="T4-（信息学奥赛一本通）"><a href="#T4-（信息学奥赛一本通）" class="headerlink" title="T4:（信息学奥赛一本通）"></a>T4:（信息学奥赛一本通）</h3><blockquote>
+<h2 id="T4-（信息学奥赛一本通）"><a href="#T4-（信息学奥赛一本通）" class="headerlink" title="T4:（信息学奥赛一本通）"></a>T4:（信息学奥赛一本通）</h2><blockquote>
 <p>Palmia国有一条横贯东西的大河，河有笔直的南北两岸，岸上各有位置各不相同的N个城市。</p>
 <p>北岸的每个城市有且仅有一个友好城市在南岸，而且不同城市的友好城市不相同。</p>
 <p>每对友好城市都向政府申请在河上开辟一条直线航道连接两个城市，但是由于河上雾太大，政府决定避免任意两条航道交叉，以避免事故。</p>
@@ -420,7 +419,7 @@
 
 <hr>
 
-<h3 id="T5-（信息学奥赛一本通）"><a href="#T5-（信息学奥赛一本通）" class="headerlink" title="T5:（信息学奥赛一本通）"></a>T5:（信息学奥赛一本通）</h3><blockquote>
+<h2 id="T5-（信息学奥赛一本通）"><a href="#T5-（信息学奥赛一本通）" class="headerlink" title="T5:（信息学奥赛一本通）"></a>T5:（信息学奥赛一本通）</h2><blockquote>
 <p>一个数的序列 bi，当 b1&lt;b2&lt;…&lt;bS的时候，我们称这个序列是上升的。</p>
 <p>对于给定的一个序列(a1,a2,…,aN，我们可以得到一些上升的子序列(ai1,ai2,…,aiK)，这里1≤i1&lt;i2&lt;…&lt;iK≤N。</p>
 <p>比如，对于序列(1,7,3,5,9,4,8)，有它的一些上升子序列，如(1,7),(3,4,8)等等。</p>
@@ -439,7 +438,7 @@
 
 <hr>
 
-<h3 id="T6-（信息学奥赛一本通，NOIP1999）"><a href="#T6-（信息学奥赛一本通，NOIP1999）" class="headerlink" title="T6:（信息学奥赛一本通，NOIP1999）"></a>T6:（信息学奥赛一本通，NOIP1999）</h3><blockquote>
+<h2 id="T6-（信息学奥赛一本通，NOIP1999）"><a href="#T6-（信息学奥赛一本通，NOIP1999）" class="headerlink" title="T6:（信息学奥赛一本通，NOIP1999）"></a>T6:（信息学奥赛一本通，NOIP1999）</h2><blockquote>
 <p>某国为了防御敌国的导弹袭击，发展出一种导弹拦截系统。</p>
 <p>但是这种导弹拦截系统有一个缺陷：虽然它的第一发炮弹能够到达任意的高度，但是以后每一发炮弹都不能高于前一发的高度。</p>
 <p>某天，雷达捕捉到敌国的导弹来袭。</p>
@@ -457,7 +456,7 @@
 
 <hr>
 
-<h3 id="T7-（算法竞赛进阶指南）"><a href="#T7-（算法竞赛进阶指南）" class="headerlink" title="T7:（算法竞赛进阶指南）"></a>T7:（算法竞赛进阶指南）</h3><blockquote>
+<h2 id="T7-（算法竞赛进阶指南）"><a href="#T7-（算法竞赛进阶指南）" class="headerlink" title="T7:（算法竞赛进阶指南）"></a>T7:（算法竞赛进阶指南）</h2><blockquote>
 <p>为了对抗附近恶意国家的威胁，RR 国更新了他们的导弹防御系统。</p>
 <p>一套防御系统的导弹拦截高度要么一直 <strong>严格单调</strong> 上升要么一直 <strong>严格单调</strong> 下降。</p>
 <p>例如，一套系统先后拦截了高度为 3 和高度为 4 的两发导弹，那么接下来该系统就只能拦截高度大于 4 的导弹。</p>
@@ -479,7 +478,7 @@
 
 <hr>
 
-<h3 id="T8-（信息学奥赛一本通）"><a href="#T8-（信息学奥赛一本通）" class="headerlink" title="T8:（信息学奥赛一本通）"></a>T8:（信息学奥赛一本通）</h3><blockquote>
+<h2 id="T8-（信息学奥赛一本通）"><a href="#T8-（信息学奥赛一本通）" class="headerlink" title="T8:（信息学奥赛一本通）"></a>T8:（信息学奥赛一本通）</h2><blockquote>
 <p>Hello Kitty想摘点花生送给她喜欢的米老鼠。</p>
 <p>她来到一片有网格状道路的矩形花生地(如下图)，从西北角进去，东南角出来。</p>
 <p>地里每个道路的交叉点上都有种着一株花生苗，上面有若干颗花生，经过一株花生苗就能摘走该它上面所有的花生。</p>
@@ -500,7 +499,7 @@
 
 <hr>
 
-<h3 id="T9-（信息学奥赛一本通）"><a href="#T9-（信息学奥赛一本通）" class="headerlink" title="T9:（信息学奥赛一本通）"></a>T9:（信息学奥赛一本通）</h3><blockquote>
+<h2 id="T9-（信息学奥赛一本通）"><a href="#T9-（信息学奥赛一本通）" class="headerlink" title="T9:（信息学奥赛一本通）"></a>T9:（信息学奥赛一本通）</h2><blockquote>
 <p>一个商人穿过一个 N×N的正方形的网格，去参加一个非常重要的商务活动。</p>
 <p>他要从网格的左上角进，右下角出。</p>
 <p>每穿越中间 1 个小方格，都要花费 1 个单位时间。</p>
@@ -523,7 +522,7 @@
 
 <hr>
 
-<h3 id="T10-（算法竞赛进阶指南-NOIP2008提高组-Google面试题）"><a href="#T10-（算法竞赛进阶指南-NOIP2008提高组-Google面试题）" class="headerlink" title="T10:（算法竞赛进阶指南, NOIP2008提高组,Google面试题）"></a>T10:（算法竞赛进阶指南, NOIP2008提高组,Google面试题）</h3><blockquote>
+<h2 id="T10-（算法竞赛进阶指南-NOIP2008提高组-Google面试题）"><a href="#T10-（算法竞赛进阶指南-NOIP2008提高组-Google面试题）" class="headerlink" title="T10:（算法竞赛进阶指南, NOIP2008提高组,Google面试题）"></a>T10:（算法竞赛进阶指南, NOIP2008提高组,Google面试题）</h2><blockquote>
 <p>小渊和小轩是好朋友也是同班同学，他们在一起总有谈不完的话题。</p>
 <p>一次素质拓展活动中，班上同学安排坐成一个 m 行 n 列的矩阵，而小渊和小轩被安排在矩阵对角线的两端，因此，他们就无法直接交谈了。</p>
 <p>幸运的是，他们可以通过传纸条来进行交流。</p>
@@ -545,7 +544,6 @@
 <figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">55</span>;<br><br><span class="hljs-keyword">int</span> f[N &lt;&lt; <span class="hljs-number">1</span>][N][N];<br><span class="hljs-keyword">int</span> w[N][N];<br><br><span class="hljs-keyword">int</span> n, m;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j ++ )<br>            cin &gt;&gt; w[i][j];<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">2</span>; k &lt;= n + m; k ++ )<br>    &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i1 = <span class="hljs-number">1</span>; i1 &lt;= n; i1 ++ )<br>        &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i2 = <span class="hljs-number">1</span>; i2 &lt;= n; i2 ++ )<br>            &#123;<br>                <span class="hljs-keyword">int</span> j1 = k - i1, j2 = k - i2;<br>                <br>                <span class="hljs-keyword">if</span> (j1 &lt; <span class="hljs-number">1</span> || j1 &gt; m || j2 &lt; <span class="hljs-number">1</span> || j2 &gt; m) <span class="hljs-keyword">continue</span>;<br>                <br>                <span class="hljs-keyword">int</span> t = w[i1][j1];<br>                <span class="hljs-keyword">if</span> (i1 != i2) t += w[i2][j2];<br>                <br>                <span class="hljs-keyword">int</span> &amp;x = f[k][i1][i2];<br>                <br>                x = <span class="hljs-built_in">max</span>(x, t + f[k - <span class="hljs-number">1</span>][i1][i2]);<br>                x = <span class="hljs-built_in">max</span>(x, t + f[k - <span class="hljs-number">1</span>][i1 - <span class="hljs-number">1</span>][i2]);<br>                x = <span class="hljs-built_in">max</span>(x, t + f[k - <span class="hljs-number">1</span>][i1][i2 - <span class="hljs-number">1</span>]);<br>                x = <span class="hljs-built_in">max</span>(x, t + f[k - <span class="hljs-number">1</span>][i1 - <span class="hljs-number">1</span>][i2 - <span class="hljs-number">1</span>]);<br>            &#125;<br>        &#125;<br>    &#125;<br>    <br>    cout &lt;&lt; f[n + m][n][n] &lt;&lt; endl;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <br>&#125;<br></code></pre></div></td></tr></table></figure>
 
 <hr>
-
 
             </div>
             <hr>
