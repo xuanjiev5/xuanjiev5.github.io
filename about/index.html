@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -94,35 +94,39 @@
           
           
           
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                文档
               </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/archives/">
+                    <i class="iconfont icon-archive-fill"></i>
+                    归档
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/">
+                    <i class="iconfont icon-category-fill"></i>
+                    分类
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/">
+                    <i class="iconfont icon-tags-fill"></i>
+                    标签
+                  </a>
+                
+              </div>
             </li>
           
         
@@ -134,6 +138,30 @@
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
                 关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/course/">
+                <i class="iconfont icon-archive-fill"></i>
+                历程
               </a>
             </li>
           
@@ -272,18 +300,39 @@
 <h2 id="目前状态"><a href="#目前状态" class="headerlink" title="目前状态"></a>目前状态</h2><p>学历🏫：本科大二，计算机科学与技术专业</p>
 <p>过去🌅：来自不大不小的地方，可能没有大城市那么繁华，但是我很喜欢它</p>
 <p>未来💻：去ICPC拿牌子，去大厂工作，在B站做一个技术up主，做有趣的开发，培养有趣的灵魂，爱我所爱，行我所行，听从我心，无问西东。</p>
-<p>邮箱📫：<strong><a href="mailto:&#x31;&#x39;&#51;&#50;&#53;&#x38;&#x38;&#x36;&#x35;&#x34;&#64;&#113;&#x71;&#x2e;&#99;&#111;&#x6d;">&#x31;&#x39;&#51;&#50;&#53;&#x38;&#x38;&#x36;&#x35;&#x34;&#64;&#113;&#x71;&#x2e;&#99;&#111;&#x6d;</a></strong></p>
-<p>很多时候呢：</p>
-<p><strong>大家互相帮助，一起成功，一起幸福什么的，不过是种理想。 现实中，有人幸福，就必定有人被抛弃 有人光鲜，就必须有人满身泥泞。</strong></p>
+<p>邮箱📫：<strong><a href="mailto:&#x31;&#x39;&#x33;&#50;&#x35;&#x38;&#56;&#x36;&#x35;&#x34;&#x40;&#113;&#113;&#x2e;&#x63;&#x6f;&#x6d;">&#x31;&#x39;&#x33;&#50;&#x35;&#x38;&#56;&#x36;&#x35;&#x34;&#x40;&#113;&#113;&#x2e;&#x63;&#x6f;&#x6d;</a></strong></p>
+<h4 id="很多时候呢："><a href="#很多时候呢：" class="headerlink" title="很多时候呢："></a>很多时候呢：</h4><p><strong>大家互相帮助，一起成功，一起幸福什么的，不过是种理想。 现实中，有人幸福，就必定有人被抛弃 有人光鲜，就必须有人满身泥泞。</strong></p>
 <hr>
 
-<blockquote>
-<p>混一天和努力一天，一天看不出来任何差别，三天看不到任何变化，七天也看不到任何距离，但是一个月后会看到话题不同，三个月后会看到气场不同，半年后会看到距离不同，一年后会看到人生道路截然不同。</p>
-</blockquote>
-<p><strong>自己很喜欢的一句话，送给每个仍在为梦想努力奋斗的你！</strong></p>
-<p class="note note-success">因为一些原因，这个页面的评论功能添加不进来，如果想联系我的话，上面有很多联系方式，都可以哦。</p>
   </div>
 
+  
+    <!-- Comments -->
+    <article class="comments" id="comments" lazyload>
+      
+      
+        
+      
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"DMqxY1YgJYYK7J4cEVToKdLI-gzGzoHsz","appKey":"qYmhywplM4iNj6r2M8jsrulM","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
   
 </article>
 
